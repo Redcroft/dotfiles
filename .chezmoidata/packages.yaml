@@ -1,24 +1,49 @@
 packages:
   linux:
+    cargo:
+      - 'bat'
+      - 'blight'
+      - 'du-dunst'
+      - 'eza'
+      - 'ripgrep'
     common:
       - 'curl'
+      - 'eza'
+      - 'ffmpeg'
+      - 'fzf'
       - 'git'
       - 'git-lfs'
       - 'tmux'
       - 'vim'
+      - 'yt-dlp'
       - 'wget'
+      - 'zoxide'
     arch:
       common:
-        - 'sox'
+        - 'bitwarden-cli'
+        - 'bitwarden'
+        - 'godot'
+        - 'qt6-webengine-widevine'
+        - 'qutebrowser'
+        - 'rbw'
+        - 'rustup'
         - 'steam'
         - 'wireguard-tools'
       workstation:
         - 'blender'
         - 'darktable'
         - 'emacs-wayland'
+        - 'hyprcursor'
+        - 'hypridle'
+        - 'hyprland'
+        - 'hyprlock'
+        - 'hyprpaper'
         - 'rawtherapee'
+        - 'rofi-wayland'
       laptop:
+        - 'dunst'
         - 'emacs-nativecomp'
+        - 'rofi'
     void:
       xbps:
         - 'emacs'

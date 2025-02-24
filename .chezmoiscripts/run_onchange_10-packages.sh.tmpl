@@ -1,0 +1,43 @@
+#!/bin/bash
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+set -eEuo pipefail
+
+{{- if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.idLike "arch")) }}
+echo "---- Arch Detected ----"
+
+ARCHFLAGS="--noconfirm --needed --quiet"
+
+if ! $(command -v paru &> /dev/null); then
+    echo "---- Installing Paru ----"
+    CWD=$(pwd)
+    sudo pacman -S $ARCHFLAGS base-devel >/dev/null 2>&1
+    git clone https://aur.archlinux.org/paru.git ~/.repos/paru >/dev/null 2>&1
+    cd ~/.repos/paru >/dev/null 2>&1
+    makepkg -si --noconfirm >/dev/null 2>&1
+    cd $CWD >/dev/null 2>&1
+fi
+
+
+echo "---- Updating Package Database ----"
+
+paru -Syy $ARCHFLAGS >/dev/null
+
+echo "---- Installing Packages ----"
+{{ range .packages.linux.common }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+{{ range .packages.linux.arch.common }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+
+{{ if eq .chezmoi.hostname "red" }}
+{{ range .packages.linux.arch.laptop }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+{{ else  }}
+{{ range .packages.linux.arch.workstation }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+{{ end }}
+echo "---- Package Installation Complete ----"
+{{- end }}

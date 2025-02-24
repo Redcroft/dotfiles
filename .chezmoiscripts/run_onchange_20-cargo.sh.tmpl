@@ -1,0 +1,27 @@
+#!/bin/bash
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+# Install Rust + utilities if there is sufficient memory
+function cargo_install {
+    pkg="$1"
+    cmd="${3:-$pkg}"
+    if ! $(command -v "$cmd" >/dev/null 2>&1); then
+        cargo install --quiet "$pkg"
+    fi
+}
+
+echo "---- Installing Cargo ----"
+
+if [ "$(uname -s)" == "Linux" ] && [ "$(awk '/^MemTotal:/{print $2}' /proc/meminfo)" -lt "3500000" ]; then
+    echo "Not enough memory to install rust, atuin and other rust utilities will not be available"
+else
+    if ! $(command -v cargo >/dev/null 2>&1); then
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+    fi
+
+    echo "---- Installing Cargo Packages ----"
+    {{ range .packages.linux.cargo }}
+    cargo_install {{ . | quote }} >/dev/null 2>&1
+    {{ end }}
+
+fi
