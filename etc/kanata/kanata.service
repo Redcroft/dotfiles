@@ -1,0 +1,11 @@
+[Unit]
+Description=Kanata key remapping daemon
+Requires=local-fs.target
+After=local-fs.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/kanata --cfg /etc/kanata/config.kbd
+
+[Install]
+WantedBy=sysinit.target

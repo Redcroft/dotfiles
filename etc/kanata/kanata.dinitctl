@@ -1,0 +1,4 @@
+# Kanata keyboard remapper
+type = process
+command = /usr/local/bin/kanata --cfg /etc/kanata/config.kbd
+before = login.target

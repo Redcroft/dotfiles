@@ -4,7 +4,6 @@
 # Install Rust + utilities if there is sufficient memory
 function cargo_install {
     pkg="$1"
-    cmd="${3:-$pkg}"
     if ! $(command -v "$cmd" >/dev/null 2>&1); then
         cargo install --quiet "$pkg"
     fi
@@ -21,7 +20,15 @@ else
 
     echo "---- Installing Cargo Packages ----"
     {{ range .packages.linux.cargo }}
-    cargo_install {{ . | quote }} >/dev/null 2>&1
+        cargo_install {{ . | quote }} >/dev/null 2>&1
     {{ end }}
 
+    if ! $(command -v /usr/local/bin/kanata 2>&1); then
+        echo "---- Linking Kanata to System ----"
+        {{ if eq .chezmoi.osRelease.id "chezmoi" }}
+            doas ln -sf $HOME/.cargo/bin/kanata /usr/local/bin
+        {{ else }}
+            sudo ln -sf $HOME/.cargo/bin/kanata /usr/local/bin
+        {{ end }}
+    fi
 fi

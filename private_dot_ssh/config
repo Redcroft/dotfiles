@@ -1,0 +1,5 @@
+Host git.carseandwaterman.com
+    HostName git.carseandwaterman.com
+    User forgejo
+    Port 2222
+    IdentityFile ~/.ssh/id_cw

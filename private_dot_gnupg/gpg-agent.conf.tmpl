@@ -1,0 +1,11 @@
+default-cache-ttl 8400000
+default-cache-ttl-ssh 8400000
+max-cache-ttl 8400000
+max-cache-ttl-ssh 8400000
+allow-loopback-pinentry
+{{ if eq .chezmoi.hostname "red" }}
+allow-emacs-pinentry
+pinentry-program /usr/bin/pinentry-emacs
+{{ else }}
+pinentry-program /usr/bin/pinentry-qt
+{{ end }}

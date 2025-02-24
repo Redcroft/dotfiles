@@ -1,0 +1,14 @@
+#!/bin/sh
+
+{{ if eq .chezmoi.hostname "red" -}}
+  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
+  {{ if eq .chezmoi.osRelease.id "chimera" }}
+    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.dinitctl" | quote }} /etc/dinitctl/kanata
+  {{ else }}
+    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
+  {{ end }}
+
+{{ else if eq .chezmoi.hostname "poseidon" -}}
+  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/heimdall.kbd" | quote }} /etc/kanata/config.kbd
+  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
+{{ end -}}
