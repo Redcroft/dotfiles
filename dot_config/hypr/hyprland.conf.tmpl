@@ -1,0 +1,262 @@
+$mod  = SUPER
+$mods = SUPER_SHIFT
+$modc = SUPER_CTRL
+
+$bg = rgb(262628)
+$fg = rgb(eedcc1)
+$primary = rgb(f5c791)
+$wallpaper = rgb(3e594e)
+
+{{ if eq .chezmoi.hostname "heimdall" }}
+monitor = DP-2, 2560x1440@240, 0x0, 1, bitdepth, 10, vrr, 1
+monitor = HDMI-A-2, 480x1920, 320x1440, 1, transform, 3
+{{ else if eq .chezmoi.hostname "red" }}
+monitor = eDP-1, 1920x1080@60, 0x0, 1
+{{ else if eq .chezmoi.hostname "poseidon" }}
+monitor = DP-2, 3840x2160@60, 0x0, 1, bitdepth, 10, vrr, 1
+monitor = DP-0, 3840x2160@60, 0x0, 1, bitdepth, 10, vrr, 1
+{{ end }}
+
+exec-once = uwsm app -- waybar -c ~/.config/waybar/config &
+exec-once = uwsm app -- mako &
+exec-once = uwsm app -- hyprpaper &
+
+animations {
+  enabled = yes
+  bezier = ease, 0.65, 0.0, 0.35, 1.0
+  animation = border, 1, 2, ease
+  animation = fade, 1, 1, ease
+  animation = windows, 1, 2, ease, popin
+  animation = workspaces, 1, 2, ease, fade
+  animation = specialWorkspace, 1, 2, ease, fade
+}
+
+binds {
+  allow_workspace_cycles = 1
+  workspace_back_and_forth = 1
+  workspace_center_on = 1
+  movefocus_cycles_fullscreen = true
+  window_direction_monitor_fallback = true
+}
+
+cursor {
+  no_hardware_cursors = 2
+  enable_hyprcursor = true
+  hide_on_touch = true
+  sync_gsettings_theme = true
+}
+
+decoration {
+  active_opacity = 0.98
+  inactive_opacity = 1.0
+  fullscreen_opacity = 1.0
+  rounding = 8
+  dim_inactive = false
+  dim_special = 0.0
+
+  blur {
+    enabled = false
+    size = 15
+    passes = 2
+    new_optimizations = true
+    xray = true
+    ignore_opacity = false
+  }
+
+  shadow {
+    enabled = false
+    range = 24
+    render_power = 3
+    sharp = false
+    ignore_window = true
+    color = $bg
+    color_inactive = $bg
+    offset = 1, 1
+    scale = 1.0
+  }
+}
+
+env = HYPRCURSOR_THEME,Posys-Cursor-Scalable-Black
+env = HYPRCURSOR_SIZE,32
+env = XCURSOR_THEME,Posys-Cursor-Scalable-Black
+
+{{ if (or (eq .chezmoi.hostname "heimdall") (eq .chezmoi.hostname "poseidon")) }}
+env = LIBVA_DRIVER_NAME,nvidia
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+env = NVD_BACKEND,direct
+{{ end }}
+
+general {
+  gaps_in = 3
+  gaps_out = 5
+  border_size = 3
+  col.active_border = $primary
+  col.inactive_border = $bg
+  layout = master
+
+  snap {
+    enabled = true
+    window_gap = 10
+    monitor_gap = 10
+    border_overlap = false
+  }
+}
+
+group {
+  auto_group = true
+  insert_after_current = true
+  focus_removed_window = true
+  col.border_active = $primary
+  col.border_inactive = $bg
+  col.border_locked_active = $bg
+  col.border_locked_inactive = $bg
+
+  groupbar {
+    enabled = true
+    font_family = "MartianMono Nerd Font"
+    font_size = 8
+    text_color = $fg
+    col.active = $primary
+    col.inactive = $bg
+    col.locked_active = $bg
+    col.locked_inactive = $bg
+  }
+}
+
+input {
+  accel_profile = flat
+  kb_layout = us
+  special_fallthrough = true
+
+  touchpad {
+    natural_scroll = true
+  }
+}
+
+master {
+  new_status = inherit
+  special_scale_factor = 0.75
+  inherit_fullscreen = true
+  smart_resizing = true
+  drop_at_cursor = true
+}
+
+misc {
+  font_family = "IosevkaTerm Nerd Font"
+  splash_font_family = "IosevkaTerm Nerd Font"
+  #disable_autoreload = true
+  disable_hyprland_logo = true
+  col.splash = $primary
+  background_color = $wallpaper
+  always_follow_on_dnd = true
+  layers_hog_keyboard_focus = true
+  animate_manual_resizes = false
+  enable_swallow = true
+  swallow_regex = ^(cachy-browser|firefox|nautilus|nemo|thunar|btrfs-assistant.)$
+  focus_on_activate = true
+  vfr = true
+}
+
+opengl {
+  nvidia_anti_flicker = true
+  force_introspection = 2
+}
+
+render {
+  explicit_sync = 2
+  explicit_sync_kms = 2
+  direct_scanout = true
+  expand_undersized_textures = true
+}
+
+{{ if eq .chezmoi.hostname "heimdall" }}
+workspace = 0, monitor:DP-2
+workspace = 1, monitor:DP-2
+workspace = 2, monitor:DP-2
+workspace = 3, monitor:DP-2
+workspace = 4, monitor:DP-2
+workspace = 5, monitor:DP-2
+workspace = 6, monitor:DP-2
+workspace = 7, monitor:HDMI-A-2
+workspace = 8, monitor:DP-2
+workspace = 9, monitor:DP-2
+{{ else if eq .chezmoi.hostname "red" }}
+workspace = 0
+workspace = 1
+workspace = 2
+workspace = 3
+workspace = 4
+workspace = 5
+workspace = 6
+workspace = 7
+workspace = 8
+workspace = 9
+{{ else if eq .chezmoi.hostname "poseidon" }}
+workspace = 0, monitor:DP-2
+workspace = 1, monitor:DP-2
+workspace = 2, monitor:DP-2
+workspace = 3, monitor:DP-2
+workspace = 4, monitor:DP-2
+workspace = 5, monitor:DP-2
+workspace = 6, monitor:DP-2
+workspace = 7, monitor:DP-0
+workspace = 8, monitor:DP-2
+workspace = 9, monitor:DP-2
+{{ end }}
+
+xwayland {
+  enabled = true
+  use_nearest_neighbor = true
+  force_zero_scaling = true
+}
+
+bind = $mods, escape, exit
+bind = $mods, Q, killactive
+
+bind = $mod, Backspace, exec, ~/.config/hyprland/cyclemon
+bind = $mod, Return, exec, uwsm app -- foot -e tmux
+bind = $mods, W, exec, uwsm app -- qutebrowser
+bind = $mods, E, exec, uwsm app -- emacs
+bind = $mod, D, exec, uwsm app -- bemenu-run
+bind = $mods, Y, exec, uwsm app -- grim -m "$(slurp)"
+bind = ,XF86AudioRaiseVolume, exec, uwsm app -- pactl set-sink-volume 0 +2%
+bind = ,XF86AudioLowerVolume, exec, uwsm app -- pactl set-sink-volume 0 -2%
+bind = ,XF86AudioMute, exec, uwsm app -- pactl set-sink-mute 0 toggle
+
+bind = $mod, minus, togglespecialworkspace
+bind = $mods, minus, movetoworkspace, special
+
+bind = $mod, M, fullscreen
+bind = $mods, space, togglefloating
+bind = $mod, J, layoutmsg, swapwithmaster
+bind = $mod, F, layoutmsg, cyclenext
+bind = $mod, B, layoutmsg, cycleprev
+bind = $mods, F, layoutmsg, swapnext
+bind = $mods, B, layoutmsg, swapprev
+bind = $modc, F, layoutmsg, mfact +0.015
+bind = $modc, B, layoutmsg, mfact -0.015
+
+bind = $mod, Backspace, exec, ~/.config/hypr/cyclemon
+bind = $mod, 0, workspace, 0
+bind = $mod, 1, workspace, 1
+bind = $mod, 2, workspace, 2
+bind = $mod, 3, workspace, 3
+bind = $mod, 4, workspace, 4
+bind = $mod, 5, workspace, 5
+bind = $mod, 6, workspace, 6
+bind = $mod, 7, workspace, 7
+bind = $mod, 8, workspace, 8
+bind = $mod, 9, workspace, 9
+bind = $mods, 0, movetoworkspace, 0
+bind = $mods, 1, movetoworkspace, 1
+bind = $mods, 2, movetoworkspace, 2
+bind = $mods, 3, movetoworkspace, 3
+bind = $mods, 4, movetoworkspace, 4
+bind = $mods, 5, movetoworkspace, 5
+bind = $mods, 6, movetoworkspace, 6
+bind = $mods, 7, movetoworkspace, 7
+bind = $mods, 8, movetoworkspace, 8
+bind = $mods, 9, movetoworkspace, 9
+
+bindm = $mod, mouse:272, movewindow
+bindm = $mod, mouse:273, resizewindow

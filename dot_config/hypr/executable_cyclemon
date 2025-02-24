@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+CUR="$(hyprctl activeworkspace | awk '/monitorID/ {print $2}')"
+if [ $CUR -eq "0" ]
+then
+    hyprctl dispatch focusmonitor 1
+else
+    hyprctl dispatch focusmonitor 0
+fi
