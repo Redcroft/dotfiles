@@ -1,11 +1,12 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package org
+  :ensure nil
   :config
   (setq org-fold-core-style 'overlays
         org-src-window-setup 'current-window)
-  (use-package org-tempo)
-  (use-package ob-shell)
-  (use-package ob-python))
+  (use-package org-tempo :ensure nil)
+  (use-package ob-shell :ensure nil)
+  (use-package ob-python :ensure nil))
 
-(provide 'org-core)
+(provide 'orgmode-core)

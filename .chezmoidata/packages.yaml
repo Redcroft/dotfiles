@@ -30,6 +30,7 @@ packages:
         - 'nerd-fonts'
         - 'qt6-webengine-widevine'
         - 'qutebrowser'
+        - 'roswell'
         - 'rustup'
         - 'steam'
         - 'wireguard-tools'
