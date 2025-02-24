@@ -1,17 +1,17 @@
 ;;; -*- lexical-binding: t -*-
 
 {{ if eq .chezmoi.hostname "poseidon" }}
-(defvar MYFONTSIZE 130)
-(setq heaven-and-hell-themes '((light . base16-nord-light)
-                                 (dark . base16-nord)))
+(defvar MYFONTSIZE 140)
+(setq heaven-and-hell-themes '((light . kaolin-valley-light)
+                                 (dark . kaolin-valley-dark)))
 {{ else if eq .chezmoi.hostname "red" }}
-(defvar MYFONTSIZE 110)
-(setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
-                                 (dark . base16-gruvbox-material-dark-hard)))
+(defvar MYFONTSIZE 120)
+(setq heaven-and-hell-themes '((light . kaolin-light)
+                                 (dark . kaolin-aurora)))
 {{ else }}
-(defvar MYFONTSIZE 90)
-(setq heaven-and-hell-themes '((light . base16-nord-light)
-                                 (dark . base16-nord)))
+(defvar MYFONTSIZE 110)
+(setq heaven-and-hell-themes '((light . kaolin-valley-light)
+                                 (dark . kaolin-temple)))
 {{ end }}
 
 
@@ -24,7 +24,8 @@
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
 (use-package all-the-icons-nerd-fonts)
 
-(use-package base16-theme :ensure (:wait t))
+;; (use-package base16-theme :ensure (:wait t))
+(use-package kaolin-themes :ensure (:wait t))
 
 (use-package heaven-and-hell
   :bind ("<f5>" . heaven-and-hell-toggle-theme)
@@ -34,7 +35,7 @@
         heaven-and-hell-theme-type 'dark)
   (load-theme (cdr (assoc 'dark heaven-and-hell-themes)) t)
   :custom-face
-  (default ((t (:font "MartianMono Nerd Font" :height ,MYFONTSIZE :weight normal))))
+  (default ((t (:font "Iosevka Comfy" :height ,MYFONTSIZE :weight semibold))))
   (fixed-pitch ((t (:weight bold))))
   (font-lock-comment-face ((t (:slant italic))))
   (font-lock-keyword-face ((t (:slant italic))))

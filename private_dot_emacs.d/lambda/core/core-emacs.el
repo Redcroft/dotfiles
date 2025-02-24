@@ -2,7 +2,7 @@
 
 (use-package emacs
   :ensure nil
-  :bind 
+  :bind
   (("C-+" . text-scale-increase)
    ("C--" . text-scale-decrease)
    ("C-c r" . eval-buffer)
@@ -22,11 +22,11 @@
         default-directory "~/"
         frame-resize-pixelwise t
         frame-title-format '(:eval
-			     (concat (if (buffer-file-name)
-				         (abbreviate-file-name (buffer-file-name))
-				       "%b")
-				     " - Emacs"
-				     ))
+                             (concat (if (buffer-file-name)
+                                         (abbreviate-file-name (buffer-file-name))
+                                       "%b")
+                                     " - Emacs"
+                                     ))
         mode-line-default-help-echo nil
         ring-bell-function #'ignore
         undo-limit 10000
@@ -39,17 +39,17 @@
   (setq-default apropos-do-all t
                 bidi-display-reordering nil
                 custom-safe-themes t
-		indent-tabs-mode nil
-		line-spacing 1
-		fill-column 80
-		highligh-nonselected-windows nil
-		indicate-buffer-boundaries nil
-		indicate-empy-lines nil
+                indent-tabs-mode nil
+                line-spacing 0
+                fill-column 80
+                highligh-nonselected-windows nil
+                indicate-buffer-boundaries nil
+                indicate-empy-lines nil
                 initial-scratch-message nil
-		truncate-lines t
-		truncate-partial-width-windows nil
-		visible-cursor nil
-		x-stretch-cursor nil)
+                truncate-lines t
+                truncate-partial-width-windows nil
+                visible-cursor nil
+                x-stretch-cursor nil)
   (pixel-scroll-precision-mode t))
 
 (provide 'core-emacs)
