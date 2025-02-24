@@ -2,16 +2,16 @@
 
 {{ if eq .chezmoi.hostname "poseidon" }}
 (defvar MYFONTSIZE 140)
-(setq heaven-and-hell-themes '((light . kaolin-valley-light)
-                                 (dark . kaolin-valley-dark)))
+(setq heaven-and-hell-themes '((light . base16-horizon-terminal-light)
+                                 (dark . base16-horizon-terminal-dark)))
 {{ else if eq .chezmoi.hostname "red" }}
 (defvar MYFONTSIZE 120)
-(setq heaven-and-hell-themes '((light . kaolin-light)
-                                 (dark . kaolin-aurora)))
+(setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
+                                 (dark . base16-gruvbox-material-dark-medium)))
 {{ else }}
 (defvar MYFONTSIZE 110)
-(setq heaven-and-hell-themes '((light . kaolin-valley-light)
-                                 (dark . kaolin-temple)))
+(setq heaven-and-hell-themes '((light . base16-horizon-light)
+                                 (dark . base16-horizon-dark)))
 {{ end }}
 
 
@@ -24,8 +24,7 @@
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
 (use-package all-the-icons-nerd-fonts)
 
-;; (use-package base16-theme :ensure (:wait t))
-(use-package kaolin-themes :ensure (:wait t))
+(use-package base16-theme :ensure (:wait t))
 
 (use-package heaven-and-hell
   :bind ("<f5>" . heaven-and-hell-toggle-theme)
