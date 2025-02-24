@@ -5,9 +5,9 @@ case $- in
     ,*i*) ;;
     ,*) return;;
 esac
-export OSH=~/.repos/oh-my-bash
+export OSH=~/.oh-my-bash
 OSH_THEME="rr"
-export UPDATE_OSH_DAYS=13
+#export UPDATE_OSH_DAYS=13
 COMPLETION_WAITING_DOTS="true"
 OMB_USE_SUDO=true
 OMB_PROMPT_SHOW_PYTHON_VENV=true
@@ -41,7 +41,10 @@ fi
 alias ls='eza'
 alias mkdir='mkdir -p'
 alias nas='ssh farm@10.0.0.5'
+{{ if eq .chezmoi.hostname "red" }}
 alias pwheimdall='pactl load-module module-tunnel-sink server=tcp:192.168.0.127'
+alias pwposeidon='pactl load-module module-tunnel-sink server=tcp:10.0.0.20'
+{{ end }}
 
 {{ if eq .chezmoi.osRelease.id "chimera" }}
 alias xuu='doas shutdown -h now'
@@ -55,4 +58,4 @@ if [ -e ~/.cargo/env ] ; then
 fi
 
 eval "$(direnv hook bash)"
-eval "$(zoxide init --cmd cd bash")
+eval "$(zoxide init --cmd cd bash)"

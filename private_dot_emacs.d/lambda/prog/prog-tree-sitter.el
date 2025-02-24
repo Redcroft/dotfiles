@@ -1,11 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(when (not (file-exists-p (expand-file-name "elpaca/builds/tsc/tsc-dyn.so" user-emacs-directory)))
-  (with-eval-after-load 'tsc-dyn
-    (setq tsc-dyn--version
-          (replace-regexp-in-string "^emacs-tree-sitter@" "" tsc-dyn--version))
-    (tsc-dyn-get--build)))
-
 (use-package treesit
   :ensure nil
   :config

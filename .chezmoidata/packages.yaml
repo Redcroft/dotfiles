@@ -1,0 +1,24 @@
+packages:
+  linux:
+    common:
+      - 'curl'
+      - 'git'
+      - 'git-lfs'
+      - 'tmux's
+      - 'vim'
+      - 'wget'
+    arch:
+      common:
+        - 'sox'
+        - 'steam'
+        - 'wireguard-tools'
+      workstation:
+        - 'blender'
+        - 'darktable'
+        - 'emacs-wayland'
+        - 'rawtherapee'
+      laptop:
+        - 'emacs-nativecomp'
+    void:
+      xbps:
+        - 'emacs'
