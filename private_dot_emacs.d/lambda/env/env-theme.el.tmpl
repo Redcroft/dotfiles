@@ -9,7 +9,7 @@
 (setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
                                  (dark . base16-gruvbox-material-dark-medium)))
 {{ else }}
-(defvar MYFONTSIZE 110)
+(defvar MYFONTSIZE 100)
 (setq heaven-and-hell-themes '((light . base16-horizon-light)
                                  (dark . base16-horizon-dark)))
 {{ end }}
@@ -34,7 +34,7 @@
         heaven-and-hell-theme-type 'dark)
   (load-theme (cdr (assoc 'dark heaven-and-hell-themes)) t)
   :custom-face
-  (default ((t (:font "Iosevka Comfy" :height ,MYFONTSIZE :weight semibold))))
+  (default ((t (:font "MartianMono Nerd Font" :height ,MYFONTSIZE :weight regular))))
   (fixed-pitch ((t (:weight bold))))
   (font-lock-comment-face ((t (:slant italic))))
   (font-lock-keyword-face ((t (:slant italic))))
