@@ -4,7 +4,7 @@ packages:
       - 'curl'
       - 'git'
       - 'git-lfs'
-      - 'tmux's
+      - 'tmux'
       - 'vim'
       - 'wget'
     arch:
