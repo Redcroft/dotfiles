@@ -1,0 +1,44 @@
+;;; -*- lexical-binding: t -*-
+
+{{ if eq .chezmoi.hostname "poseidon" }}
+(defvar MYFONTSIZE 130)
+(setq heaven-and-hell-themes '((light . base16-nord-light)
+                                 (dark . base16-nord)))
+{{ else if eq .chezmoi.hostname "red" }}
+(defvar MYFONTSIZE 110)
+(setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
+                                 (dark . base16-gruvbox-material-dark-hard)))
+{{ else }}
+(defvar MYFONTSIZE 90)
+(setq heaven-and-hell-themes '((light . base16-nord-light)
+                                 (dark . base16-nord)))
+{{ end }}
+
+
+(use-package all-the-icons)
+(use-package all-the-icons-completion
+  :after (marginalia all-the-icons)
+  :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
+  :init
+  (all-the-icons-completion-mode))
+(use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
+(use-package all-the-icons-nerd-fonts)
+
+(use-package base16-theme :ensure (:wait t))
+
+(use-package heaven-and-hell
+  :bind ("<f5>" . heaven-and-hell-toggle-theme)
+  :ensure (:wait t)
+  :config
+  (setq heaven-and-hell-load-theme-no-confirm t
+        heaven-and-hell-theme-type 'dark)
+  (load-theme (cdr (assoc 'dark heaven-and-hell-themes)) t)
+  :custom-face
+  (default ((t (:font "MartianMono Nerd Font" :height ,MYFONTSIZE :weight normal))))
+  (fixed-pitch ((t (:weight bold))))
+  (font-lock-comment-face ((t (:slant italic))))
+  (font-lock-keyword-face ((t (:slant italic))))
+  (font-lock-string-face  ((t (:slant italic))))
+  :hook (after-init . heaven-and-hell-init-hook))
+
+(provide 'env-theme)

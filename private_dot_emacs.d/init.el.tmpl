@@ -1,0 +1,54 @@
+;;; -*- lexical-binding: t -*-
+;; configuration layout based upon "ogdenwebb/snug-emacs"
+
+(load (expand-file-name "lambda/lambda" user-emacs-directory))
+
+(lambda/init
+  core-compilation
+  core-emacs
+  core-files
+  core-minibuffer
+
+  env-display-line-numbers
+  {{ if eq .chezmoi.hostname "red" }}
+  env-exwm
+  {{ end }}
+  env-eyebrowse
+  env-hl-line
+  env-indent-bars
+  env-marginalia
+  env-orderless
+  env-prescient
+  env-rainbow-delimiters
+  env-rainbow
+  env-recentf
+  env-simple
+  env-solaire
+  env-subword
+  env-superword
+  env-theme
+  env-vertico
+  env-whitespace-cleanup
+  env-whitespace
+
+  lang-elisp
+  lang-rust
+
+  pkg-chezmoi
+  pkg-eshell
+  pkg-magit
+  pkg-move-text
+  {{ if eq .chezmoi.hostname "red" }}
+  pkg-shell-pop
+  {{ end }}
+  pkg-treemacs
+  pkg-vterm
+  pkg-which-key
+
+  prog-corfu
+  prog-eglot
+  prog-eldoc
+  prog-project
+  prog-tree-sitter
+  prog-ts-fold
+  )

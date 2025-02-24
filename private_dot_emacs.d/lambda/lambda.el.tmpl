@@ -1,0 +1,48 @@
+;;; Lambda -*- lexical-binding: t -*-
+
+(defvar file-name-handler-alist-old file-name-handler-alist)
+
+(setq byte-compile-warnings '(not free-vars unresolved noruntime lexical make-local)
+      byte-compile--use-old-handlers nil
+      custom-file (concat user-emacs-directory "custom.el")
+      file-name-handler-alist nil
+      inhibit-default-init t
+      initial-major-mode 'fundamental-mode
+      load-prefer-newer t
+      site-run-file nil
+      user-login-name "lambda"
+      user-mail-address "richard@redcroft.tech"
+      user-real-login-name"Richard DW Redcroft"
+      )
+
+(add-hook 'emacs-startup-hook
+          #'(lambda ()
+              (setq file-name-handler-alist file-name-handler-alist-old)))
+
+(defvar my-config-dirs '("lambda"
+                         "lambda/core"
+                         "lambda/env"
+                         "lambda/lang"
+                         "lambda/org"
+                         "lambda/pkg"
+                         "lambda/prog"))
+
+(dolist (dir my-config-dirs)
+  (add-to-list 'load-path (expand-file-name dir user-emacs-directory)))
+
+(require 'lambda-package
+)
+(use-package gcmh
+  :hook (elpaca-after-init . gcmh-mode)
+  :config
+  (setq gcmh-verbose nil
+        gcmh-idle-delay 15
+        inhibit-compacting-font-caches t
+        gc-const-percentage 0.1))
+
+(defmacro lambda/init (&rest body)
+  (declare (indent defun))
+  (let ((gc-cons-threshold most-positive-fixnum))
+    (add-to-list 'body 'env-fun t)
+    (dolist (pkg body)
+      (require pkg nil t))))

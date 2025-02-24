@@ -1,0 +1,58 @@
+#!/bin/bash
+
+# oh-my-bash
+case $- in
+    ,*i*) ;;
+    ,*) return;;
+esac
+export OSH=~/.repos/oh-my-bash
+OSH_THEME="rr"
+export UPDATE_OSH_DAYS=13
+COMPLETION_WAITING_DOTS="true"
+OMB_USE_SUDO=true
+OMB_PROMPT_SHOW_PYTHON_VENV=true
+completions=(
+    git
+    composer
+    ssh
+)
+aliases=(
+    general
+)
+plugins=(
+    asdf
+    git
+    bashmarks
+    progress
+    zoxide
+)
+source "$OSH"/oh-my-bash.sh
+
+
+# Vars
+export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$PATH
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='vim'
+else
+    export EDITOR='emacs -nw'
+fi
+
+# Aliases
+alias ls='eza'
+alias mkdir='mkdir -p'
+alias nas='ssh farm@10.0.0.5'
+alias pwheimdall='pactl load-module module-tunnel-sink server=tcp:192.168.0.127'
+
+{{ if eq .chezmoi.osRelease.id "chimera" }}
+alias xuu='doas shutdown -h now'
+{{ else }}
+alias xuu='sudo shutdwon -h now'
+{{ end }}
+
+# Source
+if [ -e ~/.cargo/env ] ; then
+    . "$HOME/.cargo/env"
+fi
+
+eval "$(direnv hook bash)"
+eval "$(zoxide init --cmd cd bash")
