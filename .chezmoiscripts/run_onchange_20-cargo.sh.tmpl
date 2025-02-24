@@ -23,7 +23,7 @@ else
         cargo_install {{ . | quote }} >/dev/null 2>&1
     {{ end }}
 
-    if ! $(command -v /usr/local/bin/kanata 2>&1); then
+    if ! $(test -e/usr/local/bin/kanata 2>&1); then
         echo "---- Linking Kanata to System ----"
         {{ if eq .chezmoi.osRelease.id "chezmoi" }}
             doas ln -sf $HOME/.cargo/bin/kanata /usr/local/bin
