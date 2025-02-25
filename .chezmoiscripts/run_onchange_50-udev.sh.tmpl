@@ -1,0 +1,5 @@
+#!/bin/bash
+set -eEuo pipefail
+
+echo "---- Installing Udev Rules ----"
+sudo cp /home/lambda/.local/share/chezmoi/etc/udev/* /etc/udev/rules.d/

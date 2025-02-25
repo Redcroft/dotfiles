@@ -1,0 +1,17 @@
+#!/bin/sh
+
+if [ ! -e ~/.oh-my-bash/oh-my-bash.sh ]; then
+git clone --recursive git@github.com:ohmybash/oh-my-bash ~/.oh-my-bash
+fi
+
+if [ ! -e ~/.local/share/fonts/iosevka-comfy ]; then
+git clone --recursive git@github.com:protesilaos/iosevka-comfy ~/.local/share/fonts/iosevka-comfy
+fi
+
+if [ ! -e ~/.local/share/fonts/SF ]; then
+git clone --recursive git@github.com:sahibjotsaggu/San-Francisco-Pro-Fonts ~/.local/share/fonts/SF
+fi
+
+if [ ! -e ~/.local/share/fonts/SF-Mono ]; then
+git clone --recursive git@github.com:supercomputra/SF-Mono-Font ~/.local/share/fonts/SF-Mono
+fi

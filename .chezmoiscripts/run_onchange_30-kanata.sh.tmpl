@@ -1,14 +1,25 @@
 #!/bin/sh
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+set -eEuo pipefail
 
+if ! test -e /etc/kanata/config.kbd; then
 {{ if eq .chezmoi.hostname "red" -}}
-  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
+echo "---- Installing Kanata config ----"
   {{ if eq .chezmoi.osRelease.id "chimera" }}
-    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.dinitctl" | quote }} /etc/dinitctl/kanata
+    doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.dinitctl" | quote }} /etc/dinitctl/kanata
+    doas mkdir /etc/kanata
+    doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
   {{ else }}
+    sudo mkdir /etc/kanata
+    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
     sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
+    sudo systemctl enable --no my-kanata
   {{ end }}
 
 {{ else if eq .chezmoi.hostname "poseidon" -}}
-  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/heimdall.kbd" | quote }} /etc/kanata/config.kbd
+  echo "---- Installing Kanata config ----"
+  sudo mkdir /etc/kanata
+  sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/poseidon.kbd" | quote }} /etc/kanata/config.kbd
   sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
 {{ end -}}
+fi

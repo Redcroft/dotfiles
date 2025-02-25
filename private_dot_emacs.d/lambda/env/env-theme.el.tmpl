@@ -1,14 +1,17 @@
 ;;; -*- lexical-binding: t -*-
 
 {{ if eq .chezmoi.hostname "poseidon" }}
+(defvar MYFONT "MartianMono Nerd Font")
 (defvar MYFONTSIZE 140)
 (setq heaven-and-hell-themes '((light . base16-horizon-terminal-light)
                                  (dark . base16-horizon-terminal-dark)))
 {{ else if eq .chezmoi.hostname "red" }}
-(defvar MYFONTSIZE 120)
+(defvar MYFONT "JetBrainsMono Nerd Font")
+(defvar MYFONTSIZE 100)
 (setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
                                  (dark . base16-gruvbox-material-dark-medium)))
 {{ else }}
+(defvar MYFONT "MartianMono Nerd Font")
 (defvar MYFONTSIZE 100)
 (setq heaven-and-hell-themes '((light . base16-horizon-light)
                                  (dark . base16-horizon-dark)))
@@ -34,7 +37,7 @@
         heaven-and-hell-theme-type 'dark)
   (load-theme (cdr (assoc 'dark heaven-and-hell-themes)) t)
   :custom-face
-  (default ((t (:font "MartianMono Nerd Font" :height ,MYFONTSIZE :weight regular))))
+  (default ((t (:font ,MYFONT :height ,MYFONTSIZE :weight semibold))))
   (fixed-pitch ((t (:weight bold))))
   (font-lock-comment-face ((t (:slant italic))))
   (font-lock-keyword-face ((t (:slant italic))))

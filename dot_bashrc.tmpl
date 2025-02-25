@@ -28,7 +28,6 @@ plugins=(
 )
 source "$OSH"/oh-my-bash.sh
 
-
 # Vars
 export PATH=$HOME/.local/bin:$HOME/.cargo/bin:/var/lib/flatpak/exports/bin:$PATH
 if [[ -n $SSH_CONNECTION ]]; then
@@ -49,7 +48,7 @@ alias pwposeidon='pactl load-module module-tunnel-sink server=tcp:10.0.0.20'
 {{ if eq .chezmoi.osRelease.id "chimera" }}
 alias xuu='doas shutdown -h now'
 {{ else }}
-alias xuu='sudo shutdwon -h now'
+alias xuu='sudo shutdown -h now'
 {{ end }}
 
 # Source

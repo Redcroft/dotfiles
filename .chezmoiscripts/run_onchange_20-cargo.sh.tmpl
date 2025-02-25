@@ -18,6 +18,9 @@ else
         curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
     fi
 
+    echo "---- Setup Stable Branch ----"
+    cargo default stable >/dev/null 2>&1
+
     echo "---- Installing Cargo Packages ----"
     {{ range .packages.linux.cargo }}
         cargo_install {{ . | quote }} >/dev/null 2>&1

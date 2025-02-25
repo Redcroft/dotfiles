@@ -10,6 +10,8 @@ packages:
       - 'ripgrep'
     common:
       - 'aspell'
+      - 'clang'
+      - 'cmake'
       - 'curl'
       - 'eza'
       - 'direnv'
@@ -17,6 +19,10 @@ packages:
       - 'fzf'
       - 'git'
       - 'git-lfs'
+      - 'kitty'
+      - 'llvm'
+      - 'python-adblock'
+      - 'python-tldextract'
       - 'tmux'
       - 'vim'
       - 'yt-dlp'
@@ -26,17 +32,19 @@ packages:
       common:
         - 'bitwarden-cli'
         - 'bitwarden'
+        - 'blender'
         - 'godot'
+        - 'neovim'
         - 'nerd-fonts'
         - 'qt6-webengine-widevine'
         - 'qutebrowser'
         - 'roswell'
         - 'rustup'
+        - 'rust-analyzer'
         - 'steam'
         - 'wireguard-tools'
       workstation:
         - 'bemenu'
-        - 'blender'
         - 'cuda'
         - 'darktable'
         - 'digikam'
@@ -60,7 +68,9 @@ packages:
         - 'zfs-utils'
       laptop:
         - 'dunst'
-        - 'emacs-nativecomp'
+        - 'emacs'
+        - 'hip-runtime-amd'
+        - 'rocm-hip-runtime'
         - 'rofi'
     void:
       xbps:

@@ -30,14 +30,18 @@ paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
 
-{{ if eq .chezmoi.hostname "red" }}
+{{ if eq .chezmoi.hostname "red" -}}
+echo "---- Installing Laptop Packages ----"
 {{ range .packages.linux.arch.laptop }}
 paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
-{{ else  }}
+
+{{ else -}}
+echo "---- Installing Workstation Packages ----"
 {{ range .packages.linux.arch.workstation }}
 paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
-{{ end }}
+
+{{ end -}}
 echo "---- Package Installation Complete ----"
 {{- end }}

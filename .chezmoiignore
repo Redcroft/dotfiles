@@ -1,7 +1,3 @@
 etc/
 etc/**
 
-.local/share/fonts/SF-Mono
-.local/share/fonts/SF
-.local/share/fonts/iosevka-comfy
-.oh-my-bash

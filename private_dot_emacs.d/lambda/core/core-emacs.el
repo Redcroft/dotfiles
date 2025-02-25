@@ -40,7 +40,7 @@
                 bidi-display-reordering nil
                 custom-safe-themes t
                 indent-tabs-mode nil
-                line-spacing 0.2
+                line-spacing 0
                 fill-column 80
                 highligh-nonselected-windows nil
                 indicate-buffer-boundaries nil
