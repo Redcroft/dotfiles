@@ -4,6 +4,7 @@
 # Install Rust + utilities if there is sufficient memory
 function cargo_install {
     pkg="$1"
+    echo " Installing $pkg "
     if ! $(command -v "$cmd" >/dev/null 2>&1); then
         cargo install --quiet "$pkg"
     fi
@@ -19,14 +20,14 @@ else
     fi
 
     echo "---- Setup Stable Branch ----"
-    cargo default stable >/dev/null 2>&1
+    rustup default stable >/dev/null 2>&1
 
     echo "---- Installing Cargo Packages ----"
     {{ range .packages.linux.cargo }}
         cargo_install {{ . | quote }} >/dev/null 2>&1
     {{ end }}
 
-    if ! $(test -e/usr/local/bin/kanata 2>&1); then
+    if ! $(test -e /usr/local/bin/kanata 2>&1); then
         echo "---- Linking Kanata to System ----"
         {{ if eq .chezmoi.osRelease.id "chezmoi" }}
             doas ln -sf $HOME/.cargo/bin/kanata /usr/local/bin
