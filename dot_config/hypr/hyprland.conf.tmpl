@@ -14,7 +14,7 @@ monitor = HDMI-A-2, 480x1920, 320x1440, 1, transform, 3
 monitor = eDP-1, 1920x1080@60, 0x0, 1
 {{ else if eq .chezmoi.hostname "poseidon" }}
 monitor = DP-2, 3840x2160@60, 0x0, 1, bitdepth, 10, vrr, 1
-monitor = DP-0, 3840x2160@60, 0x0, 1, bitdepth, 10, vrr, 1
+monitor = DP-1, 3840x2160@60, 3840x0, 1, bitdepth, 10, vrr, 1
 {{ end }}
 
 exec-once = uwsm app -- waybar -c ~/.config/waybar/config &
@@ -192,16 +192,16 @@ workspace = 7
 workspace = 8
 workspace = 9
 {{ else if eq .chezmoi.hostname "poseidon" }}
-workspace = 0, monitor:DP-2
-workspace = 1, monitor:DP-2
-workspace = 2, monitor:DP-2
-workspace = 3, monitor:DP-2
-workspace = 4, monitor:DP-2
-workspace = 5, monitor:DP-2
-workspace = 6, monitor:DP-2
-workspace = 7, monitor:DP-0
-workspace = 8, monitor:DP-2
-workspace = 9, monitor:DP-2
+workspace = 0, monitor:DP-1
+workspace = 1, monitor:DP-1
+workspace = 2, monitor:DP-1
+workspace = 3, monitor:DP-1
+workspace = 4, monitor:DP-1
+workspace = 5, monitor:DP-1
+workspace = 6, monitor:DP-1
+workspace = 7, monitor:DP-2
+workspace = 8, monitor:DP-1
+workspace = 9, monitor:DP-1
 {{ end }}
 
 xwayland {
@@ -211,14 +211,22 @@ xwayland {
 }
 
 bind = $mods, escape, exit
+{{ if eq .chezmoi.hostname "poseidon" }}
+bind = $mod, escape, exit
+{{ end }}
 bind = $mods, Q, killactive
 
 bind = $mod, Backspace, exec, ~/.config/hyprland/cyclemon
 bind = $mod, Return, exec, uwsm app -- foot -e tmux
+{{ if eq .chezmoi.hostname "poseidon" }}
+bind = $mods, W, exec, uwsm app -- zen-browser
+{{ else }}
 bind = $mods, W, exec, uwsm app -- qutebrowser
+{{ end }}
 bind = $mods, E, exec, uwsm app -- emacs
 bind = $mod, D, exec, uwsm app -- bemenu-run
 bind = $mods, Y, exec, uwsm app -- grim -m "$(slurp)"
+bind = $mods, G, exec, uwsm app -- godot --display-driver wayland
 bind = ,XF86AudioRaiseVolume, exec, uwsm app -- pactl set-sink-volume 0 +2%
 bind = ,XF86AudioLowerVolume, exec, uwsm app -- pactl set-sink-volume 0 -2%
 bind = ,XF86AudioMute, exec, uwsm app -- pactl set-sink-mute 0 toggle

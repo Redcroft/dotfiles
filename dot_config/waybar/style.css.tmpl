@@ -1,7 +1,11 @@
 * {
   /* `otf-font-awesome` is required to be installed for icons */
-  font-family: "Iosevka Comfy", " Font Awesome 6 Free,Font Awesome 6 Free Solid";
-  font-size: 8pt;
+    font-family: "Iosevka Comfy", " Font Awesome 6 Free,Font Awesome 6 Free Solid";
+    {{ if eq .chezmoi.hostname "poseidon" }}
+    font-size: 12pt;
+    {{ else }}
+    font-size: 8pt;
+    {{ end }}
   font-weight: 900;
   margin: 0;
   padding: 0;

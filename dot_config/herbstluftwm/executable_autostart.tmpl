@@ -1,0 +1,197 @@
+#!/usr/bin/env bash
+hc() {
+    herbstclient "$@"
+}
+
+hc emit_hook reload
+hc keyunbind --all
+Mod=Mod4
+
+hc keybind $Mod-Shift-Escape quit
+hc keybind $Mod-tilda quit
+hc keybind $Mod-Escape reload
+hc keybind $Mod-Shift-q close
+
+hc keybind $Mod-Return spawn kitty
+{{ if eq .chezmoi.hostname "poseidon" }}
+hc keybind $Mod-Shift-w spawn zen-browser
+{{ else }}
+hc keybind $Mod-Shift-w spawn qutebrowser
+{{ end }}
+hc keybind $Mod-Shift-e spawn emacs
+hc keybind $Mod-d spawn dmenu_run
+hc keybind $Mod-z spawn rofi-rbw
+hc keybind $Mod-minus spawn ~/.local/bin/hc-scratch
+
+hc keybind XF86AudioMute spawn pactl set-sink-mute @DEFAULT_SINK@ toggle
+hc keybind XF86AudioRaiseVolume spawn pactl set-sink-volume @DEFAULT_SINK@ +2%
+hc keybind XF86AudioLowerVolume spawn pactl set-sink-volume @DEFAULT_SINK@ -2%
+
+hc keybind $Mod-b     focus left
+hc keybind $Mod-n     focus down
+hc keybind $Mod-p     focus up
+hc keybind $Mod-f     focus right
+
+hc keybind $Mod-Shift-b     shift left
+hc keybind $Mod-Shift-n     shift down
+hc keybind $Mod-Shift-p     shift up
+hc keybind $Mod-Shift-f     shift right
+
+hc keybind $Mod-v       split   bottom  0.5
+hc keybind $Mod-h       split   right   0.5
+hc keybind $Mod-Control-space split explode
+
+resizestep=0.005
+hc keybind $Mod-Control-b       resize left +$resizestep
+hc keybind $Mod-Control-n       resize down +$resizestep
+hc keybind $Mod-Control-p       resize up +$resizestep
+hc keybind $Mod-Control-f       resize right +$resizestep
+
+hc keybind $Mod-j chain , shift left , focus left , cycle -1 , shift right , focus left
+hc keybind $Mod-Shift-j chain , shift right , focus right , cycle -1 , shift left , focus rigth
+
+# tags
+tag_names=( {1..9} )
+tag_keys=( {1..9} 0 )
+
+hc rename default "${tag_names[0]}" || true
+for i in "${!tag_names[@]}" ; do
+    hc add "${tag_names[$i]}"
+    key="${tag_keys[$i]}"
+    if [ -n "$key" ] ; then
+        hc keybind "$Mod-$key" use_index "$i"
+        hc keybind "$Mod-Shift-$key" move_index "$i"
+    fi
+done
+
+# cycle through tags
+hc keybind $Mod-period use_index +1 --skip-visible
+hc keybind $Mod-comma  use_index -1 --skip-visible
+
+# layouting
+hc keybind $Mod-x remove
+hc keybind $Mod-s floating toggle
+hc keybind $Mod-m fullscreen toggle
+hc keybind $Mod-Shift-space set_attr clients.focus.floating toggle
+hc keybind $Mod-Shift-d set_attr clients.focus.decorated toggle
+hc keybind $Mod-space pseudotile toggle
+hc keybind $Mod-e cycle_layout +1
+hc keybind $Mod-BackSpace cycle_monitor
+hc keybind $Mod-Tab cycle +1
+hc keybind $Mod-Shift-Tab cycle -1
+hc keybind $Mod-i jumpto urgent
+hc keybind $Mod-y toggle show_frame_decorations
+
+hc keybind $Mod-Shift-u substitute FOCUS "tags.focus.name" \
+   foreach CLIENT clients. \
+   sprintf MINATT "%c.minimized" CLIENT \
+   sprintf TAGATT "%c.tag" CLIENT and \
+   , compare MINATT "=" "true" \
+   , compare TAGATT "=" FOCUS \
+   , set_attr MINATT false
+
+hc mouseunbind --all
+hc mousebind $Mod-Button1 move
+hc mousebind $Mod-Button2 resize
+hc mousebind $Mod-Button3 resize
+
+Background='#19171c'
+Foreground='#8b8792'
+Red='#be4678'
+Green='#2a9292'
+Blue='#576ddb'
+Magenta='#955ae7'
+
+hc set focus_follows_mouse 0
+
+# theme
+hc attr theme.tiling.reset 1
+hc attr theme.floating.reset 1
+hc set frame_border_active_color $Background
+hc set frame_border_normal_color $Background
+hc set frame_bg_normal_color $Background
+hc set frame_bg_active_color $Magenta
+hc set frame_border_width 3
+hc set show_frame_decorations 'focused_if_multiple'
+hc set frame_bg_transparent on
+hc set frame_transparent_width 5
+hc set frame_gap 6
+
+hc attr theme.title_height 15
+hc attr theme.title_when multiple_tabs
+hc attr theme.floating.title_when multiple_tabs
+hc attr theme.title_font 'IosevkaTerm Nerd Font:size=10:style=Medium'
+hc attr theme.title_depth 6
+hc attr theme.active.color $Magenta
+hc attr theme.title_color $Background
+hc attr theme.normal.color $Background
+hc attr theme.urgent.color $Red
+hc attr theme.tab_color $Background
+hc attr theme.active.tab_color $Background
+hc attr theme.active.tab_outer_color $Background
+hc attr theme.active.tab_title_color $Foreground
+hc attr theme.normal.title_color $Foreground
+hc attr theme.inner_width 2
+hc attr theme.inner_color black
+hc attr theme.border_width 2
+hc attr theme.floating.border_width 2
+hc attr theme.floating.outer_width 2
+hc attr theme.floating.outer_color $Blue
+hc attr theme.active.inner_color $Magenta
+hc attr theme.urgent.inner_color $Red
+hc attr theme.normal.inner_color $Background
+# copy inner color to outer_color
+for state in active urgent normal ; do
+    hc substitute C theme.${state}.inner_color \
+        attr theme.${state}.outer_color C
+done
+hc attr theme.tiling.outer_width 1
+hc attr theme.background_color $Background
+
+hc set window_gap 0
+hc set frame_padding 0
+hc set smart_window_surroundings off
+hc set smart_frame_surroundings on
+hc set mouse_recenter_gap 0
+
+hc set tree_style '╾│ ├└╼─┐'
+
+hc unrule -F
+hc rule focus=on
+hc rule floatplacement=smart
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' floating=on
+hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on
+hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
+hc rule fixedsize floating=on
+hc rule class~'UnrealEditor' floating=on
+hc rule class~'*Godot*' floating=on
+
+hc unlock
+{{ if eq .chezmoi.hostname "heimdall" }}
+xrandr --output HDMI-1 --mode 480x1920 --rate 60 --rotate right --pos 320x1440 --output DP-2 --mode 2560x1440 --rate 240 --pos 0x0
+herbstclient add "panel"
+herbstclient set_monitors 2560x1440+0+0
+herbstclient add_monitor 1920x480+320+1440 "panel" panel
+herbstclient lock_tag panel
+{{ else if eq .chezmoi.hostname "poseidon" }}
+xrandr --output DP-2 --mode 3840x2160 --rate 60 --pos 0x0 --output DP-0 --mode 3840x2160 --rate 60 --pos 3840x0
+herbstclient add "panel"
+herbstclient set_monitors 3840x2160+3840+0
+herbstclient add_monitor 3830x2160+0+0 "panel" panel
+herbstclient lock_tag panel
+{{ end }}
+
+{{ if eq .chezmoi.hostname "heimdall" }}
+sudo zpool import -fa
+sudo zfs mount photos
+{{ end }}
+pkill polybar
+pkill picom
+polybar &
+picom &
+xsetroot -solid '#657c64'
+hsetroot -solid '#657c64'
+~/.fehbg &
+xrdb -merge ~/.Xresources
+xset s off
+xset -dpms

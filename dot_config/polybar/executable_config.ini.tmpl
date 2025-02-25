@@ -1,0 +1,152 @@
+[colors]
+background = #19171c
+background-alt = #26232a
+foreground = #8b8792
+primary = #955ae7
+secondary = #576ddb
+alert = #be4678
+disabled = #655f6d
+green = #2a9292
+yellow = #a06e3b
+orange = #aa573c
+red = #be4678
+
+[bar/main]
+width = 100%
+height = 24
+radius = 0
+
+{{ if eq .chezmoi.hostname "poseidon" }}
+monitor = DP-0
+{{ end }}
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 3pt
+
+border-size = 6pt
+border-color = ${colors.background-alt}00
+
+padding-left = 0
+padding-right = 1
+
+module-margin = 1
+
+separator = |
+separator-foreground = ${colors.secondary}
+
+font-0 = "IosevkaTerm Nerd Font:size=9:weight=Medium;2"
+
+modules-left = xworkspaces
+modules-center = xwindow
+modules-right = volume fs-root memory cpu date
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+enable-ipc = true
+
+[module/xworkspaces]
+type = internal/xworkspaces
+
+label-active = %name%
+label-active-background = ${colors.background-alt}
+label-active-underline= ${colors.primary}
+label-active-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 1
+
+label-empty = %name%
+label-empty-foreground = ${colors.disabled}
+label-empty-padding = 1
+
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+
+[module/volume]
+type = internal/pulseaudio
+interval = 4
+bar-volume-indicator =
+bar-volume-width = 9
+bar-volume-foreground-0 = ${colors.green}
+bar-volume-foreground-1 = ${colors.yellow}
+bar-volume-foreground-2 = ${colors.orange}
+bar-volume-foreground-3 = ${colors.red}
+bar-volume-fill = ▐
+bar-volume-empty = ▐
+bar-volume-empty-foreground = ${colors.background-alt}
+format-volume = <bar-volume>
+format-volume-prefix = "VOL "
+format-volume-prefix-foreground = ${colors.primary}
+
+[module/fs-root]
+type = internal/fs
+interval = 60
+bar-used-indicator =
+bar-used-width = 9
+bar-used-foreground-0 = ${colors.green}
+bar-used-foreground-1 = ${colors.yellow}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = ${colors.background-alt}
+format-mounted = <bar-used>
+format-mounted-prefix = "SSD "
+format-mounted-prefix-foreground = ${colors.primary}
+mount-0 = /
+
+[module/cpu]
+type = internal/cpu
+interval = 2
+bar-load-indicator =
+bar-load-width = 9
+bar-load-foreground-0 = ${colors.green}
+bar-load-foreground-1 = ${colors.yellow}
+bar-load-foreground-2 = ${colors.orange}
+bar-load-foreground-3 = ${colors.red}
+bar-load-fill = ▐
+bar-load-empty = ▐
+bar-load-empty-foreground = ${colors.background-alt}
+format-prefix = "CPU "
+format-prefix-foreground = ${colors.primary}
+format = <bar-load>
+label = %percentage:2%%
+
+[module/memory]
+type = internal/memory
+interval = 2
+bar-used-indicator =
+bar-used-width = 9
+bar-used-foreground-0 = ${colors.green}
+bar-used-foreground-1 = ${colors.yellow}
+bar-used-foreground-2 = ${colors.orange}
+bar-used-foreground-3 = ${colors.red}
+bar-used-fill = ▐
+bar-used-empty = ▐
+bar-used-empty-foreground = ${colors.background-alt}
+format-prefix = "RAM "
+format-prefix-foreground = ${colors.primary}
+format = <bar-used>
+label = %percentage_used:2%%
+
+[module/date]
+type = internal/date
+interval = 1
+
+date = %a %d %b %H:%M
+date-alt = %Y-%m-%d %H:%M:%S
+
+label = %date%
+label-foreground = ${colors.primary}
+
+[settings]
+screenchange-reload = true
+pseudo-transparency = true
