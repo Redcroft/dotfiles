@@ -22,4 +22,5 @@ echo "---- Installing Kanata config ----"
   sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/poseidon.kbd" | quote }} /etc/kanata/config.kbd
   sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
 {{ end -}}
+echo ""
 fi
