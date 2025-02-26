@@ -12,6 +12,9 @@
   (rustic-format-onsave t)
   :hook ((rustic-mode . (lambda ()
                           (when buffer-file-name
-                            (setq-local compilation-ask-about-save nil))))))
+                            (setq-local compilation-ask-about-save nil))
+                          (tree-sitter-mode 1)
+                          (tree-sitter-hl-mode 1)
+                          ))))
 
 (provide 'lang-rust)

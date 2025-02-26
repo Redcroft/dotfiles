@@ -29,8 +29,12 @@
 ;;           (tsx . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src"))
 ;;           (typescript . ("https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src"))
 ;;           (yaml "https://github.com/ikatyang/tree-sitter-yaml"))))
-;; 
+;;
 ;; (use-package tree-sitter-langs)
+
+(use-package tree-sitter)
+
+(use-package tree-sitter-langs)
 
 (use-package treesit-auto
   :config
