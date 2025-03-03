@@ -13,7 +13,7 @@
 (setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
                                  (dark . base16-gruvbox-material-dark-medium)))
 {{ else }}
-(defvar MYFONT "MartianMono Nerd Font")
+(defvar MYFONT "Terminus")
 (defvar MYFONTSIZE 100)
 (defvar MYFONTWEIGHT 'regular)
 (setq heaven-and-hell-themes '((light . base16-horizon-light)
@@ -30,10 +30,11 @@
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
 (use-package all-the-icons-nerd-fonts)
 
+(use-package solarized-theme :ensure (:wait t))
 (use-package base16-theme :ensure (:wait t))
 
 (use-package heaven-and-hell
-  :bind ("<f5>" . heaven-and-hell-toggle-theme)
+  :bind (("<f5>" . heaven-and-hell-toggle-theme))
   :ensure (:wait t)
   :config
   (setq heaven-and-hell-load-theme-no-confirm t

@@ -5,6 +5,6 @@
   (dimmer-mode)
   :custom
   (dimmer-adjustment-mode :foreground)
-  (dimmer-fraction 0.6))
+  (dimmer-fraction 0.1))
 
 (provide 'env-dimmer)
