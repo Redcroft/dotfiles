@@ -2,7 +2,7 @@
 # packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 set -eEuo pipefail
 
-{{- if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.idLike "arch")) }}
+{{- if (or (eq .chezmoi.osRelease.id "arch") (eq .chezmoi.osRelease.id "cachyos")) }}
 echo "---- Arch Detected ----"
 
 ARCHFLAGS="--noconfirm --needed --quiet"
@@ -24,7 +24,7 @@ paru -Syy $ARCHFLAGS >/dev/null
 
 echo "---- Installing Packages ----"
 {{ range .packages.linux.common }}
-paru -S $ARCHFLAGS {{ . | quote }} 
+paru -S $ARCHFLAGS {{ . | quote }}
 {{ end }}
 {{ range .packages.linux.arch.common }}
 paru -S $ARCHFLAGS {{ . | quote }}
@@ -39,7 +39,7 @@ paru -S $ARCHFLAGS {{ . | quote }}
 {{ else -}}
 echo "---- Installing Workstation Packages ----"
 {{ range .packages.linux.arch.workstation }}
-paru -S $ARCHFLAGS {{ . | quote }} 
+paru -S $ARCHFLAGS {{ . | quote }}
 {{ end }}
 
 {{ end -}}
