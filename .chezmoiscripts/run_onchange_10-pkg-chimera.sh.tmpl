@@ -1,0 +1,32 @@
+#!/bin/sh
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+set -eEuo pipefail
+
+{{- if eq .chezmoi.osRelease.id "chimera"}}
+echo "---- Chimera Detected ----"
+
+APKFLAGS="--noconfirm --needed --quiet"
+
+echo "---- Updating Package Database ----"
+
+doas apk update $APKFLAGS >/dev/null
+
+echo "---- Installing Packages ----"
+{{ range .packages.linux.common }}
+doas apk add $APKFLAGS {{ . | quote }} 
+{{ end }}
+{{ range .packages.linux.chimera.common }}
+doas apk add $APKFLAGS {{ . | quote }}
+{{ end }}
+
+echo "---- Package Installation Complete ----"
+
+echo "---- Configuring Dinit Services ----"
+doas dinitctl enable bluetoothd
+doas dinitctl enable chrony
+doas dinitctl enable iwd
+doas dinitctl enable sshd
+doas dinitctl enable syslog-ng
+flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+echo "---- Dinit Services Complete ----"
+{{- end }}
