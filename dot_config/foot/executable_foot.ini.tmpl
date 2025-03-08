@@ -1,60 +1,33 @@
 [main]
-dpi-aware=no
-font=JetBrainsMono Nerd Font:size=10:style=Semibold
-pad=25x25 center
+dpi-aware = no
+font={{ (index .fonts .chezmoi.hostname).monospace.name }}:size={{ (index .fonts .chezmoi.hostname).monospace.size }}:style={{ (index .fonts .chezmoi.hostname).monospace.style }}
+pad = 25x25 center
 
 [csd]
-border-width=25
+border-width = 25
 
 [cursor]
-{{ if eq .chezmoi.hostname "red" }}
-color=53676d
-{{ else }}
-color=adbcbc
-{{ end }}
+color = {{ (index .colors .chezmoi.hostname).base05 }}
 
 [colors]
-alpha = 0.95
-{{ if eq .chezmoi.hostname "red" }}
-foreground=53676d
-background=fbf3db
+#alpha = 0.95
+background = {{ (index .colors .chezmoi.hostname).base00 }}
+foreground = {{ (index .colors .chezmoi.hostname).base05 }}
 
-regular0 = ece3cc
-regular1 = d2212d
-regular2 = 489100
-regular3 = ad8900
-regular4 = 0072d4
-regular5 = ca4898
-regular6 = 009c8f
-regular7 = 909995
+regular0 = {{ (index .colors .chezmoi.hostname).base00 }}
+regular1 = {{ (index .colors .chezmoi.hostname).base08 }}
+regular2 = {{ (index .colors .chezmoi.hostname).base0B }}
+regular3 = {{ (index .colors .chezmoi.hostname).base0A }}
+regular4 = {{ (index .colors .chezmoi.hostname).base0D }}
+regular5 = {{ (index .colors .chezmoi.hostname).base0E }}
+regular6 = {{ (index .colors .chezmoi.hostname).base0C }}
+regular7 = {{ (index .colors .chezmoi.hostname).base05 }}
 
-bright0 = d5cdb6
-bright1 = cc1729
-bright2 = 428b00
-bright3 = a78300
-bright4 = 006dce
-bright5 = c44392
-bright6 = 00978a
-bright7 = 3a4d53
-{{ else }}
-foreground=adbcbc
-background=103c48
-
-regular0 = 184956
-regular1 = fa5750
-regular2 = 75b938
-regular3 = dbb32d
-regular4 = 4695f7
-regular5 = f275be
-regular6 = 41c7b9
-regular7 = 72898f
-
-bright0 = 2d5b69
-bright1 = ff665c
-bright2 = 84c747
-bright3 = ebc13d
-bright4 = 58a3ff
-bright5 = ff84cd
-bright6 = 53d6c7
-bright7 = cad8d9
-{{ end }}
+bright0 = {{ (index .colors .chezmoi.hostname).base03 }}
+bright1 = {{ (index .colors .chezmoi.hostname).base08 }}
+bright2 = {{ (index .colors .chezmoi.hostname).base0B }}
+bright3 = {{ (index .colors .chezmoi.hostname).base0A }}
+bright4 = {{ (index .colors .chezmoi.hostname).base0D }}
+bright5 = {{ (index .colors .chezmoi.hostname).base0E }}
+bright6 = {{ (index .colors .chezmoi.hostname).base0C }}
+bright7 = {{ (index .colors .chezmoi.hostname).base07 }}

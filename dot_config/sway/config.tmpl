@@ -15,14 +15,14 @@ gaps inner 6
 gaps outer 6
 shadows enable
 shadow_blur_radius 18
-shadow_color #3e3e3e3e
+shadow_color 00000023
 
 ### Colors
-client.focused #0072d4 #0072d4 #fbf3db
-client.unfocused #53676d #53676d #fbf3db
+client.focused {{ (index .colors .chezmoi.hostname).base0B }} {{ (index .colors .chezmoi.hostname).base0B }} {{ (index .colors .chezmoi.hostname).base00 }}
+client.unfocused {{ (index .colors .chezmoi.hostname).base00 }} {{ (index .colors .chezmoi.hostname).base00 }} {{ (index .colors .chezmoi.hostname).base0F }}
 
 ### Output configuration
-output * bg "#3a3a3a" solid_color
+output * bg "#{{ (index .colors .chezmoi.hostname).background }}" solid_color
 
 ### Input configuration
 input type:touchpad {
@@ -151,21 +151,6 @@ bindsym $mod+r mode "resize"
 
 #
 # Status Bar:
-
-# bar {
-#     position top
-#     status_command while date +'%a %d %b %I:%M '; do sleep 60; done
-
-#     colors {
-#         statusline #53676d
-#         background #fbf3db
-#         focused_workspace #0072d4 #0072d4 #fbf3db
-#         active_workspace #d5cdb6 #d5cdb6 #53676d
-#         inactive_workspace #fbf3db #fbf3db #53676d
-#         urgent_workspace #d2212d #d2212d #fbf3db
-#     }
-# }
-
 bar {
     swaybar_command waybar
 }

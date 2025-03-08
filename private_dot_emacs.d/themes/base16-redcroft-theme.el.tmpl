@@ -1,0 +1,42 @@
+;; base16-redcroft-theme.el -- A base16 colorscheme
+
+;;; Commentary:
+;; Base16: (https://github.com/tinted-theming/home)
+
+;;; Authors:
+;; Scheme: Jamy Golden (http://github.com/JamyGolden), based on Dracula Theme (http://github.com/dracula)
+;; Template: Kaleb Elwert <belak@coded.io>
+
+;;; Code:
+
+(require 'base16-theme)
+
+(defvar base16-redcroft-theme-colors
+  '(:base00 "#{{ (index .colors .chezmoi.hostname).base00 }}"
+    :base01 "#{{ (index .colors .chezmoi.hostname).base01 }}"
+    :base02 "#{{ (index .colors .chezmoi.hostname).base02 }}"
+    :base03 "#{{ (index .colors .chezmoi.hostname).base03 }}"
+    :base04 "#{{ (index .colors .chezmoi.hostname).base04 }}"
+    :base05 "#{{ (index .colors .chezmoi.hostname).base05 }}"
+    :base06 "#{{ (index .colors .chezmoi.hostname).base06 }}"
+    :base07 "#{{ (index .colors .chezmoi.hostname).base07 }}"
+    :base08 "#{{ (index .colors .chezmoi.hostname).base08 }}"
+    :base09 "#{{ (index .colors .chezmoi.hostname).base09 }}"
+    :base0A "#{{ (index .colors .chezmoi.hostname).base0A }}"
+    :base0B "#{{ (index .colors .chezmoi.hostname).base0B }}"
+    :base0C "#{{ (index .colors .chezmoi.hostname).base0C }}"
+    :base0D "#{{ (index .colors .chezmoi.hostname).base0D }}"
+    :base0E "#{{ (index .colors .chezmoi.hostname).base0E }}"
+    :base0F "#{{ (index .colors .chezmoi.hostname).base0F }}")
+  "All colors for Base16 Dracula are defined here.")
+
+;; Define the theme
+(deftheme base16-redcroft)
+
+;; Add all the faces to the theme
+(base16-theme-define 'base16-redcroft base16-redcroft-theme-colors)
+
+;; Mark the theme as provided
+(provide-theme 'base16-redcroft)
+
+(provide 'base16-redcroft-theme)

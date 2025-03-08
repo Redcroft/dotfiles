@@ -96,22 +96,15 @@ hc mousebind $Mod-Button1 move
 hc mousebind $Mod-Button2 resize
 hc mousebind $Mod-Button3 resize
 
-Background='#19171c'
-Foreground='#8b8792'
-Red='#be4678'
-Green='#2a9292'
-Blue='#576ddb'
-Magenta='#955ae7'
-
 hc set focus_follows_mouse 0
 
 # theme
 hc attr theme.tiling.reset 1
 hc attr theme.floating.reset 1
-hc set frame_border_active_color $Background
-hc set frame_border_normal_color $Background
-hc set frame_bg_normal_color $Background
-hc set frame_bg_active_color $Magenta
+hc set frame_border_active_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc set frame_border_normal_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc set frame_bg_normal_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc set frame_bg_active_color {{ (index .colors .chezmoi.hostname).base0E }}
 hc set frame_border_width 3
 hc set show_frame_decorations 'focused_if_multiple'
 hc set frame_bg_transparent on
@@ -121,33 +114,33 @@ hc set frame_gap 6
 hc attr theme.title_height 15
 hc attr theme.title_when multiple_tabs
 hc attr theme.floating.title_when multiple_tabs
-hc attr theme.title_font 'IosevkaTerm Nerd Font:size=10:style=Medium'
+hc attr theme.title_font '{{ (index .fonts .chezmoi.hostname).monospace.name }}:size={{ (index .fonts .chezmoi.hostname).monospace.size }}:style={{ (index .fonts .chezmoi.hostname).monospace.style }}'
 hc attr theme.title_depth 6
-hc attr theme.active.color $Magenta
-hc attr theme.title_color $Background
-hc attr theme.normal.color $Background
-hc attr theme.urgent.color $Red
-hc attr theme.tab_color $Background
-hc attr theme.active.tab_color $Background
-hc attr theme.active.tab_outer_color $Background
-hc attr theme.active.tab_title_color $Foreground
-hc attr theme.normal.title_color $Foreground
+hc attr theme.active.color {{ (index .colors .chezmoi.hostname).base0E }}
+hc attr theme.title_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc attr theme.normal.color {{ (index .colors .chezmoi.hostname).base00 }}
+hc attr theme.urgent.color {{ (index .colors .chezmoi.hostname).base08 }}
+hc attr theme.tab_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc attr theme.active.tab_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc attr theme.active.tab_outer_color {{ (index .colors .chezmoi.hostname).base00 }}
+hc attr theme.active.tab_title_color {{ (index .colors .chezmoi.hostname).base05 }}
+hc attr theme.normal.title_color {{ (index .colors .chezmoi.hostname).base05 }}
 hc attr theme.inner_width 2
 hc attr theme.inner_color black
 hc attr theme.border_width 2
 hc attr theme.floating.border_width 2
 hc attr theme.floating.outer_width 2
-hc attr theme.floating.outer_color $Blue
-hc attr theme.active.inner_color $Magenta
-hc attr theme.urgent.inner_color $Red
-hc attr theme.normal.inner_color $Background
+hc attr theme.floating.outer_color {{ (index .colors .chezmoi.hostname).base0D }}
+hc attr theme.active.inner_color {{ (index .colors .chezmoi.hostname).base0E }}
+hc attr theme.urgent.inner_color {{ (index .colors .chezmoi.hostname).base08 }}
+hc attr theme.normal.inner_color {{ (index .colors .chezmoi.hostname).base00 }}
 # copy inner color to outer_color
 for state in active urgent normal ; do
     hc substitute C theme.${state}.inner_color \
         attr theme.${state}.outer_color C
 done
 hc attr theme.tiling.outer_width 1
-hc attr theme.background_color $Background
+hc attr theme.background_color {{ (index .colors .chezmoi.hostname).base00 }}
 
 hc set window_gap 0
 hc set frame_padding 0

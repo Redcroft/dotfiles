@@ -1,25 +1,5 @@
 ;;; -*- lexical-binding: t -*-
-
-{{ if eq .chezmoi.hostname "poseidon" }}
-(defvar MYFONT "MartianMono Nerd Font")
-(defvar MYFONTSIZE 80)
-(defvar MYFONTWEIGHT 'regular)
-(setq heaven-and-hell-themes '((light . base16-horizon-terminal-light)
-                                 (dark . base16-horizon-terminal-dark)))
-{{ else if eq .chezmoi.hostname "red" }}
-(defvar MYFONT "JetBrainsMono Nerd Font")
-(defvar MYFONTSIZE 100)
-(defvar MYFONTWEIGHT 'semibold)
-(setq heaven-and-hell-themes '((light . solarized-selenized-dark)
-                                 (dark . solarized-selenized-light)))
-{{ else }}
-(defvar MYFONT "JetBrainsMono Nerd Font")
-(defvar MYFONTSIZE 100)
-(defvar MYFONTWEIGHT 'semibold)
-(setq heaven-and-hell-themes '((light . solarized-selenized-light)
-                                 (dark . solarized-selenized-dark)))
-{{ end }}
-
+(setq custom-theme-directory "~/.emacs.d/themes/")
 
 (use-package all-the-icons)
 (use-package all-the-icons-completion
@@ -29,23 +9,12 @@
   (all-the-icons-completion-mode))
 (use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-Mode))
 (use-package all-the-icons-nerd-fonts)
-
-(use-package solarized-theme :ensure (:wait t))
 (use-package base16-theme :ensure (:wait t))
 
-(use-package heaven-and-hell
-  :bind (("<f5>" . heaven-and-hell-toggle-theme))
-  :ensure (:wait t)
-  :config
-  (setq heaven-and-hell-load-theme-no-confirm t
-        heaven-and-hell-theme-type 'dark)
-  (load-theme (cdr (assoc 'dark heaven-and-hell-themes)) t)
-  :custom-face
-  (default ((t (:font ,MYFONT :height ,MYFONTSIZE :weight ,MYFONTWEIGHT))))
-  (fixed-pitch ((t (:weight bold))))
-  (font-lock-comment-face ((t (:slant italic))))
-  (font-lock-keyword-face ((t (:slant italic))))
-  (font-lock-string-face  ((t (:slant italic))))
-  :hook (after-init . heaven-and-hell-init-hook))
+(load-theme 'base16-redcroft t)
+(set-face-attribute 'default nil
+                    :family "{{ (index .fonts .chezmoi.hostname).monospace.name }}"
+                    :weight '{{ (index .fonts .chezmoi.hostname).monospace.style }}
+                    :height {{ (index .fonts .chezmoi.hostname).monospace.size }}0)
 
 (provide 'env-theme)

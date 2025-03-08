@@ -1,11 +1,6 @@
 * {
-    /* `otf-font-awesome` is required to be installed for icons */
-    font-family: "JetBrainsMono Nerd Font", " Font Awesome 6 Free,Font Awesome 6 Free Solid";
-    {{ if eq .chezmoi.hostname "poseidon" }}
-    font-size: 12pt;
-    {{ else }}
-    font-size: 9pt;
-    {{ end }}
+    font-family: "{{ (index .fonts .chezmoi.hostname).monospace.name }}", " Font Awesome 6 Free,Font Awesome 6 Free Solid";
+    font-size: {{ (index .fonts .chezmoi.hostname).monospace.size }}pt;
     font-weight: 900;
     margin: 0;
     padding: 0;
@@ -27,11 +22,7 @@
     /*background: @bg;*/
     background-color: transparent;
     /*color: @light;*/
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #53676d;
-    {{ else }}
-    color: #ffffff;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
     transition-property: background-color;
     transition-duration: 0.5s;
     /*border-top: 8px transparent;*/
@@ -74,13 +65,8 @@
 #window,
 #workspaces {
     padding: 0px 8px;
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #53676d;
-    background-color: #fbf3db;
-    {{ else }}
-    color: #e5e5e5;
-    background-color: #1e1e1e;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base00 }};
     border-radius: 20px;
 }
 
@@ -99,24 +85,20 @@ window#waybar.hidden {
 }
 
 #workspaces button.focused {
-    color: #fbf3db;
-    background-color: #0072d4;;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base0E }};
 }
 #workspace button.hover {
     background-color: transparent;
 }
 
 #workspaces button.urgent {
-    color: #fbf3db;
-    background-color: #eb4d4b;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base08 }};
 }
 
 #window {
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #53676d;
-    {{ else }}
-    color: #64727d;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
 }
 
 #waybar.empty #window {
@@ -124,77 +106,22 @@ window#waybar.hidden {
 }
 
 #cpu {
-    {{ if eq .chezmoi.hostname "red" }}
-    background-color: #fbf3db;
-    {{ else }}
-    color: #fb958b;
-    background-color: #1e1e1e;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base00 }};
     min-width: 92px;
 }
 
 #memory {
-    {{ if eq .chezmoi.hostname "red" }}
-    background-color: #fbf3db;
-    {{ else }}
-    color: #ebcb8b;
-    background-color: #1e1e1e;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base00 }};
 }
 
 #custom-power {
     border-radius: 20px;
     padding-left: 8px;
     padding-right: 11px;
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #fbf3db;
-    background-color: #d2212d;
-    {{ else }}
-    background-color: #1e1e1e;
-    {{ end }}
-}
-
-#custom-launcher {
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #0072d4;
-    background-color: #fbf3db;
-    {{ else }}
-    color: #6a92d7;
-    background-color: #1e1e1e;
-    {{ end }}
-    border-radius: 7.5px;
-    padding: 0 0px;
-}
-
-#custom-weather.severe {
-    color: #eb937d;
-}
-
-#custom-weather.sunnyDay {
-    color: #c2ca76;
-}
-
-#custom-weather.clearNight {
-    color: #cad3f5;
-}
-
-#custom-weather.cloudyFoggyDay,
-#custom-weather.cloudyFoggyNight {
-    color: #c2ddda;
-}
-
-#custom-weather.rainyDay,
-#custom-weather.rainyNight {
-    color: #5aaca5;
-}
-
-#custom-weather.showyIcyDay,
-#custom-weather.snowyIcyNight {
-    color: #d6e7e5;
-}
-
-#custom-weather.default {
-    color: #dbd9d8;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base08 }};
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -208,23 +135,20 @@ window#waybar.hidden {
 }
 
 #clock {
-    {{ if eq .chezmoi.hostname "red" }}
-    color: #53676d;
-    {{ else }}
-    color: #c8d2e0;
-    {{ end }}
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base0D }};
 }
 
 #battery {
-    color: #fbf3db;
-    background-color: #ad8900;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base0A }};
 }
 
 #battery.charging,
 #battery.full,
 #battery.plugged {
-    color: #fbf3db;
-    background-color: #489100;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base0B }};
 }
 
 @keyframes blink {
@@ -235,94 +159,11 @@ window#waybar.hidden {
 }
 
 #battery.critical:not(.charging) {
-    color: #f53c3c;
+    color: #{{ (index .colors .chezmoi.hostname).base00 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base08 }};
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
-}
-
-label:focus {
-    background-color: #000000;
-}
-
-#bluetooth {
-    color: #707d9d;
-}
-
-#bluetooth.disconnected {
-    color: #f53c3c;
-}
-
-#network {
-    color: #b48ead;
-}
-
-#network.disconnected {
-    color: #f53c3c;
-}
-
-#custom-media {
-    background-color: #66cc99;
-    color: #2a5c45;
-    min-width: 100px;
-}
-
-#custom-media.custom-spotify {
-    background-color: #66cc99;
-}
-
-#custom-media.custom-vlc {
-    background-color: #ffa000;
-}
-
-#temperature {
-    background-color: #f0932b;
-}
-
-#temperature.critical {
-    background-color: #eb4d4b;
-}
-
-#tray > .passive {
-    -gtk-icon-effect: dim;
-}
-
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-    background-color: #2d3436;
-}
-
-#idle_inhibitor.activated {
-    background-color: #ecf0f1;
-    color: #2d3436;
-}
-
-#language {
-    background: #00b093;
-    color: #740864;
-    padding: 0 0px;
-    margin: 0 5px;
-    min-width: 16px;
-}
-
-#keyboard-state {
-    background: #97e1ad;
-    color: #000000;
-    padding: 0 0px;
-    margin: 0 5px;
-    min-width: 16px;
-}
-
-#keyboard-state > label {
-    padding: 0 0px;
-}
-
-#keyboard-state > label.locked {
-    background: rgba(0, 0, 0, 0.2);
 }
