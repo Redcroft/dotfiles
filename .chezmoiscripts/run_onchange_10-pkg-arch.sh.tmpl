@@ -24,22 +24,22 @@ paru -Syy $ARCHFLAGS >/dev/null
 
 echo "---- Installing Packages ----"
 {{ range .packages.linux.common }}
-paru -S $ARCHFLAGS {{ . | quote }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
 {{ range .packages.linux.arch.common }}
-paru -S $ARCHFLAGS {{ . | quote }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
 
 {{ if eq .chezmoi.hostname "red" -}}
 echo "---- Installing Laptop Packages ----"
 {{ range .packages.linux.arch.laptop }}
-paru -S $ARCHFLAGS {{ . | quote }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
 
 {{ else -}}
 echo "---- Installing Workstation Packages ----"
 {{ range .packages.linux.arch.workstation }}
-paru -S $ARCHFLAGS {{ . | quote }}
+paru -S $ARCHFLAGS {{ . | quote }} >/dev/null 2>&1
 {{ end }}
 
 {{ end -}}
