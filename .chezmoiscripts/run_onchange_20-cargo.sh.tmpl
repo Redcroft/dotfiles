@@ -29,7 +29,7 @@ else
 
     if ! $(test -e /usr/local/bin/kanata 2>&1); then
         echo "---- Linking Kanata to System ----"
-        {{ if eq .chezmoi.osRelease.id "chezmoi" }}
+        {{ if eq .chezmoi.osRelease.id "chimera" }}
             doas ln -sf $HOME/.cargo/bin/kanata /usr/local/bin
         {{ else }}
             sudo ln -sf $HOME/.cargo/bin/kanata /usr/local/bin

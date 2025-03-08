@@ -1,44 +1,60 @@
 [main]
 dpi-aware=no
-font=BlexMono Nerd Font:size=10
+font=JetBrainsMono Nerd Font:size=10:style=Semibold
 pad=25x25 center
 
 [csd]
-border-width = 25
+border-width=25
 
 [cursor]
-color=19171c aa573c
+{{ if eq .chezmoi.hostname "red" }}
+color=53676d
+{{ else }}
+color=adbcbc
+{{ end }}
 
 [colors]
-foreground=8b8792
-background=19171c
+alpha = 0.95
+{{ if eq .chezmoi.hostname "red" }}
+foreground=53676d
+background=fbf3db
 
-regular0=19171c
-regular1=be4678
-regular2=2a9292
-regular3=a06e3b
-regular4=576ddb
-regular5=995ae7
-regular6=398bc6
-regular7=8b8792
+regular0 = ece3cc
+regular1 = d2212d
+regular2 = 489100
+regular3 = ad8900
+regular4 = 0072d4
+regular5 = ca4898
+regular6 = 009c8f
+regular7 = 909995
 
-bright0=655f6d
-bright1=be4678
-bright2=2a9292
-bright3=a06e3b
-bright4=576ddb
-bright5=955ae7
-bright6=398bc6
-bright7=efecf4
+bright0 = d5cdb6
+bright1 = cc1729
+bright2 = 428b00
+bright3 = a78300
+bright4 = 006dce
+bright5 = c44392
+bright6 = 00978a
+bright7 = 3a4d53
+{{ else }}
+foreground=adbcbc
+background=103c48
 
-16=aa573c
-17=bf40bf
+regular0 = 184956
+regular1 = fa5750
+regular2 = 75b938
+regular3 = dbb32d
+regular4 = 4695f7
+regular5 = f275be
+regular6 = 41c7b9
+regular7 = 72898f
 
-selection-foreground=19171c
-selection-background=8b8792
-
-search-box-no-match=19171c be5678
-search-box-match=8b8792 2a9292
-
-jump-labels=19171c a06e3b
-urls=398bc6
+bright0 = 2d5b69
+bright1 = ff665c
+bright2 = 84c747
+bright3 = ebc13d
+bright4 = 58a3ff
+bright5 = ff84cd
+bright6 = 53d6c7
+bright7 = cad8d9
+{{ end }}

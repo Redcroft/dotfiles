@@ -2,11 +2,18 @@
     "layer": "top",
     "position": "top",
     "margin-right": 10,
+    "margin-left": 10,
+    "margin-top": 5,
     "spacing": 5,
 
     "modules-left": [
+        {{ if eq .chezmoi.osRelease.id "chimera" }}
+        "sway/workspaces",
+        "sway/window",
+        {{ else }}
         "hyprland/workspaces",
         "hyprland/window",
+        {{ end }}
     ],
     "modules-center": [
         "clock#date",
@@ -15,10 +22,10 @@
         {{ if eq .chezmoi.hostname "red" }}
         "battery",
         {{ end }}
+        "wireplumber",
         "disk",
         "memory",
         "cpu",
-        "wireplumber",
         "custom/power",
     ],
 
@@ -54,6 +61,11 @@
         "separate-outputs": true
     },
 
+    "sway/window": {
+        "max-length": 25,
+        "separate-outputs": true
+    },
+
     "memory": {
         "interval": 30,
         "format": "  {used:0.2f} / {total:0.0f} GB",
@@ -74,7 +86,7 @@
         //on-click: "${wpctl} set-mute @DEFAULT_AUDIO_SINK@ toggle";
         //on-scroll-down: "${wpctl} set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 0.04+";
         //on-scroll-up: "${wpctl} set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 0.04-";
-        "format": "<span foreground='#fab387'>{icon}</span>  {volume}%",
+        "format": "{icon} {volume}%",
         "format-muted": " ",
         "format-source": "",
         "format-source-muted": "",

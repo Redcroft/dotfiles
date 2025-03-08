@@ -10,14 +10,14 @@
 (defvar MYFONT "JetBrainsMono Nerd Font")
 (defvar MYFONTSIZE 100)
 (defvar MYFONTWEIGHT 'semibold)
-(setq heaven-and-hell-themes '((light . base16-gruvbox-material-light-soft)
-                                 (dark . base16-gruvbox-material-dark-medium)))
+(setq heaven-and-hell-themes '((light . solarized-selenized-dark)
+                                 (dark . solarized-selenized-light)))
 {{ else }}
-(defvar MYFONT "Terminus")
+(defvar MYFONT "JetBrainsMono Nerd Font")
 (defvar MYFONTSIZE 100)
-(defvar MYFONTWEIGHT 'regular)
-(setq heaven-and-hell-themes '((light . base16-horizon-light)
-                                 (dark . base16-horizon-dark)))
+(defvar MYFONTWEIGHT 'semibold)
+(setq heaven-and-hell-themes '((light . solarized-selenized-light)
+                                 (dark . solarized-selenized-dark)))
 {{ end }}
 
 
@@ -27,7 +27,7 @@
   :hook (marginalia-mode . all-the-icons-completion-marginalia-setup)
   :init
   (all-the-icons-completion-mode))
-(use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-mode))
+(use-package all-the-icons-dired :hook (dired-mode . all-the-icons-dired-Mode))
 (use-package all-the-icons-nerd-fonts)
 
 (use-package solarized-theme :ensure (:wait t))

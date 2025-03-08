@@ -1,0 +1,173 @@
+### Variables
+set $mod Mod4
+set $term foot -e tmux
+set $menu wmenu-run
+set $editor emacs
+set $browser qutebrowser
+
+### Settings
+blur enable
+blur_noise 0.6
+blur_radius 10
+corner_radius 12
+default_border pixel 4
+gaps inner 6
+gaps outer 6
+shadows enable
+shadow_blur_radius 18
+shadow_color #3e3e3e3e
+
+### Colors
+client.focused #0072d4 #0072d4 #fbf3db
+client.unfocused #53676d #53676d #fbf3db
+
+### Output configuration
+output * bg "#3a3a3a" solid_color
+
+### Input configuration
+input type:touchpad {
+   dwt disabled
+   tap enabled
+   natural_scroll enabled
+   accel_profile "flat"
+}
+
+input type:pointer {
+  accel_profile "flat"
+}
+
+### Key bindings
+#
+# Basics:
+#
+    floating_modifier $mod normal
+
+    bindsym $mod+Return exec $term
+    bindsym $mod+d exec $menu
+    bindsym $mod+Shift+e exec $editor
+    bindsym $mod+Shift+w exec $browser
+    bindsym $mod+Shift+q kill
+    bindsym $mod+Escape reload
+    bindsym $mod+Shift+Escape exec swaymsg exit
+#
+# Moving around:
+#
+    # Move your focus around
+    bindsym $mod+b focus left
+    bindsym $mod+n focus down
+    bindsym $mod+p focus up
+    bindsym $mod+f focus right
+
+    # Move the focused window with the same, but add Shift
+    bindsym $mod+Shift+b move left
+    bindsym $mod+Shift+n move down
+    bindsym $mod+Shift+p move up
+    bindsym $mod+Shift+f move right
+#
+# Workspaces:
+#
+    # Switch to workspace
+    bindsym $mod+1 workspace number 1
+    bindsym $mod+2 workspace number 2
+    bindsym $mod+3 workspace number 3
+    bindsym $mod+4 workspace number 4
+    bindsym $mod+5 workspace number 5
+    bindsym $mod+6 workspace number 6
+    bindsym $mod+7 workspace number 7
+    bindsym $mod+8 workspace number 8
+    bindsym $mod+9 workspace number 9
+    bindsym $mod+0 workspace number 10
+    # Move focused container to workspace
+    bindsym $mod+Shift+1 move container to workspace number 1
+    bindsym $mod+Shift+2 move container to workspace number 2
+    bindsym $mod+Shift+3 move container to workspace number 3
+    bindsym $mod+Shift+4 move container to workspace number 4
+    bindsym $mod+Shift+5 move container to workspace number 5
+    bindsym $mod+Shift+6 move container to workspace number 6
+    bindsym $mod+Shift+7 move container to workspace number 7
+    bindsym $mod+Shift+8 move container to workspace number 8
+    bindsym $mod+Shift+9 move container to workspace number 9
+    bindsym $mod+Shift+0 move container to workspace number 10
+    # Note: workspaces can have any name you want, not just numbers.
+    # We just use 1-10 as the default.
+#
+# Layout stuff:
+#
+    # You can "split" the current object of your focus with
+    # $mod+b or $mod+v, for horizontal and vertical splits
+    # respectively.
+    bindsym $mod+h splith
+    bindsym $mod+v splitv
+
+    # Switch the current container between different layout styles
+    bindsym $mod+s layout stacking
+    bindsym $mod+w layout tabbed
+    bindsym $mod+e layout toggle split
+
+    # Make the current focus fullscreen
+    bindsym $mod+m fullscreen
+
+    # Toggle the current focus between tiling and floating mode
+    bindsym $mod+Shift+space floating toggle
+
+    # Swap focus between the tiling area and the floating area
+    bindsym $mod+space focus mode_toggle
+
+    # Move focus to the parent container
+    bindsym $mod+a focus parent
+#
+# Scratchpad:
+#
+    bindsym $mod+Shift+minus move scratchpad
+    bindsym $mod+minus scratchpad show
+#
+# Resizing containers:
+#
+mode "resize" {
+    bindsym b resize shrink width 10px
+    bindsym n resize grow height 10px
+    bindsym p resize shrink height 10px
+    bindsym f resize grow width 10px
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+#
+# Utilities:
+#
+    # Special keys to adjust volume via PulseAudio
+    bindsym --locked XF86AudioMute exec pactl set-sink-mute \@DEFAULT_SINK@ toggle
+    bindsym --locked XF86AudioLowerVolume exec pactl set-sink-volume \@DEFAULT_SINK@ -5%
+    bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
+    bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
+    # Special keys to adjust brightness via brightnessctl
+    bindsym --locked XF86MonBrightnessDown exec bright dec 5 --sweep
+    bindsym --locked XF86MonBrightnessUp exec bright inc 5 --sweep
+    bindsym --locked $mod+XF86MonBrightnessDown exec bright set 10 --sweep
+    bindsym --locked $mod+XF86MonBrightnessUp exec bright set 255 --sweep
+    # Special key to take a screenshot with grim
+    bindsym Print exec grim
+
+#
+# Status Bar:
+
+# bar {
+#     position top
+#     status_command while date +'%a %d %b %I:%M '; do sleep 60; done
+
+#     colors {
+#         statusline #53676d
+#         background #fbf3db
+#         focused_workspace #0072d4 #0072d4 #fbf3db
+#         active_workspace #d5cdb6 #d5cdb6 #53676d
+#         inactive_workspace #fbf3db #fbf3db #53676d
+#         urgent_workspace #d2212d #d2212d #fbf3db
+#     }
+# }
+
+bar {
+    swaybar_command waybar
+}
+
+include /etc/sway/config.d/*

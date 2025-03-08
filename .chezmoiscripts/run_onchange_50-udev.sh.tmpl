@@ -2,4 +2,8 @@
 set -eEuo pipefail
 
 echo "---- Installing Udev Rules ----"
+{{ if eq .chezmoi.osRelease.id "chimera" }}
+doas cp /home/lambda/.local/share/chezmoi/etc/udev/* /etc/udev/rules.d/
+{{ else }}
 sudo cp /home/lambda/.local/share/chezmoi/etc/udev/* /etc/udev/rules.d/
+{{ end }}

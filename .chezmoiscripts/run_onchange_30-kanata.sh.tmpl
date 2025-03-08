@@ -6,9 +6,10 @@ if ! test -e /etc/kanata/config.kbd; then
 {{ if eq .chezmoi.hostname "red" -}}
 echo "---- Installing Kanata config ----"
   {{ if eq .chezmoi.osRelease.id "chimera" }}
-    doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.dinitctl" | quote }} /etc/dinitctl/kanata
+    doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.dinitctl" | quote }} /etc/dinit.d/kanata
     doas mkdir /etc/kanata
     doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
+    doas dinitctl enable kanata
   {{ else }}
     sudo mkdir /etc/kanata
     sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd

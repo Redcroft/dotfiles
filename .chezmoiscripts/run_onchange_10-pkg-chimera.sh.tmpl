@@ -1,11 +1,10 @@
 #!/bin/sh
 # packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
-set -eEuo pipefail
 
 {{- if eq .chezmoi.osRelease.id "chimera"}}
 echo "---- Chimera Detected ----"
 
-APKFLAGS="--noconfirm --needed --quiet"
+APKFLAGS="--quiet --no-interactive --no-progress"
 
 echo "---- Updating Package Database ----"
 
@@ -15,7 +14,7 @@ echo "---- Installing Packages ----"
 {{ range .packages.linux.common }}
 doas apk add $APKFLAGS {{ . | quote }} 
 {{ end }}
-{{ range .packages.linux.chimera.common }}
+{{ range .packages.linux.chimera }}
 doas apk add $APKFLAGS {{ . | quote }}
 {{ end }}
 
