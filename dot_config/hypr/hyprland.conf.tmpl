@@ -2,10 +2,10 @@ $mod  = SUPER
 $mods = SUPER_SHIFT
 $modc = SUPER_CTRL
 
-$bg = rgb(262628)
-$fg = rgb(eedcc1)
-$primary = rgb(f5c791)
-$wallpaper = rgb(3e594e)
+$bg = rgb({{ (index .colors .chezmoi.hostname).base00 }})
+$fg = rgb({{ (index .colors .chezmoi.hostname).base05 }})
+$primary = rgb({{ (index .colors .chezmoi.hostname).base09 }})
+$wallpaper = rgb({{ (index .colors .chezmoi.hostname).background }})
 
 {{ if eq .chezmoi.hostname "heimdall" }}
 monitor = DP-2, 2560x1440@240, 0x0, 1, bitdepth, 10, vrr, 1
@@ -64,21 +64,24 @@ decoration {
   }
 
   shadow {
-    enabled = false
+    enabled = true
     range = 24
-    render_power = 3
+    render_power = 4
     sharp = false
     ignore_window = true
-    color = $bg
-    color_inactive = $bg
+    color = rgba(28282888)
+    color_inactive = rgba(28282888)
     offset = 1, 1
     scale = 1.0
   }
 }
 
+env = QT_QPA_PLATFORM,wayland;xcb
 env = HYPRCURSOR_THEME,Posys-Cursor-Scalable-Black
-env = HYPRCURSOR_SIZE,32
+env = HYPRCURSOR_SIZE,24
 env = XCURSOR_THEME,Posys-Cursor-Scalable-Black
+env = BEMENU_OPTS, -p "> " --tb ##{{ (index .colors .chezmoi.hostname).base00 }} --tf ##{{ (index .colors .chezmoi.hostname).base0E }} --nb ##{{ (index .colors .chezmoi.hostname).base00 }} --nf ##{{ (index .colors .chezmoi.hostname).base05 }} --hb ##{{ (index .colors .chezmoi.hostname).base09 }} --hf ##{{ (index .colors .chezmoi.hostname).base00 }} --ab ##{{ (index .colors .chezmoi.hostname).base01 }} --af ##{{ (index .colors .chezmoi.hostname).base05 }} --fn '{{ (index .fonts .chezmoi.hostname).monospace.name }} {{ (index .fonts .chezmoi.hostname).monospace.size }}' -H 34
+
 
 {{ if (or (eq .chezmoi.hostname "heimdall") (eq .chezmoi.hostname "poseidon")) }}
 env = LIBVA_DRIVER_NAME,nvidia
@@ -113,8 +116,8 @@ group {
 
   groupbar {
     enabled = true
-    font_family = "MartianMono Nerd Font"
-    font_size = 8
+    font_family = "{{ (index .fonts .chezmoi.hostname).monospace.name }}"
+    font_size = {{ (index .fonts .chezmoi.hostname).monospace.size }}
     text_color = $fg
     col.active = $primary
     col.inactive = $bg
@@ -142,9 +145,8 @@ master {
 }
 
 misc {
-  font_family = "IosevkaTerm Nerd Font"
-  splash_font_family = "IosevkaTerm Nerd Font"
-  #disable_autoreload = true
+  font_family = "{{ (index .fonts .chezmoi.hostname).monospace.name }}"
+  splash_font_family = "{{ (index .fonts .chezmoi.hostname).monospace.name }}"
   disable_hyprland_logo = true
   col.splash = $primary
   background_color = $wallpaper

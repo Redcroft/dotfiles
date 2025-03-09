@@ -80,16 +80,15 @@ window#waybar.hidden {
 }
 
 #workspaces button {
+    color: #{{ (index .colors .chezmoi.hostname).base05 }};
+    background-color: #{{ (index .colors .chezmoi.hostname).base00 }};
     padding: 0 3px;
     border-radius: 20px;
 }
 
-#workspaces button.focused {
+#workspaces button.focused, #workspaces button.active {
     color: #{{ (index .colors .chezmoi.hostname).base00 }};
     background-color: #{{ (index .colors .chezmoi.hostname).base0E }};
-}
-#workspace button.hover {
-    background-color: transparent;
 }
 
 #workspaces button.urgent {
