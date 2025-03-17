@@ -84,9 +84,12 @@ env = BEMENU_OPTS, -p "> " --tb ##{{ (index .colors .chezmoi.hostname).base00 }}
 
 
 {{ if (or (eq .chezmoi.hostname "heimdall") (eq .chezmoi.hostname "poseidon")) }}
+env = GBM_BACKEND,nvidia-drm
 env = LIBVA_DRIVER_NAME,nvidia
-env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 env = NVD_BACKEND,direct
+env = __GLX_VENDOR_LIBRARY_NAME,nvidia
+env = __GL_GSYNC_ALLOWED,1
+env = __GL_VRR_ALLOWED,1
 {{ end }}
 
 general {
