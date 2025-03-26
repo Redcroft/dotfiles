@@ -14,7 +14,7 @@ echo "---- Installing Kanata config ----"
     sudo mkdir /etc/kanata
     sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
     sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.service" | quote }} /lib/systemd/system/my-kanata.service
-    sudo systemctl enable --no my-kanata
+    sudo systemctl enable --now my-kanata
   {{ end }}
 
 {{ else if eq .chezmoi.hostname "poseidon" -}}

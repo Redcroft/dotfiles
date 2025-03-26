@@ -25,7 +25,6 @@ packages:
       - 'neovim'
       - 'python-adblock'
       - 'python-tldextract'
-      - 'rofi'
       - 'tmux'
       - 'vim'
       - 'yt-dlp'
@@ -36,6 +35,7 @@ packages:
         - 'bitwarden-cli'
         - 'bitwarden'
         - 'cachyos-armcord'
+        - 'cachyos-gaming-meta'
         - 'emacs'
         - 'godot'
         - 'lemurs'
@@ -44,6 +44,8 @@ packages:
         - 'posy-improved-cursors'
         - 'qt6-webengine-widevine'
         - 'qutebrowser'
+        - 'rbw'
+        - 'rofi-wayland'
         - 'roswell'
         - 'rustup'
         - 'rust-analyzer'
@@ -106,6 +108,9 @@ packages:
         - 'waybar'
         - 'wmenu'
         - 'xserver-xorg'
+    ubuntu:
+      common:
+        - 'build-essential'
     void:
       xbps:
         - 'emacs'

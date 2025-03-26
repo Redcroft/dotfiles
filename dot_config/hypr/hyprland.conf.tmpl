@@ -235,6 +235,8 @@ bind = $mods, G, exec, uwsm app -- game-performance godot --display-driver wayla
 bind = ,XF86AudioRaiseVolume, exec, uwsm app -- pactl set-sink-volume 0 +2%
 bind = ,XF86AudioLowerVolume, exec, uwsm app -- pactl set-sink-volume 0 -2%
 bind = ,XF86AudioMute, exec, uwsm app -- pactl set-sink-mute 0 toggle
+bind = ,XF86MonBrightnessUp, exec, uwsm app -- ~/.cargo/bin/blight inc 2
+bind = ,XF86MonBrightnessDown, exec, uwsm app -- ~/.cargo/bin/blight dec 2
 
 bind = $mod, minus, togglespecialworkspace
 bind = $mods, minus, movetoworkspace, special
