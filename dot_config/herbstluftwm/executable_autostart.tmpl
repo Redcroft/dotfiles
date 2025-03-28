@@ -13,10 +13,10 @@ hc keybind $Mod-Escape reload
 hc keybind $Mod-Shift-q close
 
 hc keybind $Mod-Return spawn kitty
-{{ if eq .chezmoi.hostname "poseidon" }}
-hc keybind $Mod-Shift-w spawn zen-browser
-{{ else }}
+{{ if eq .chezmoi.hostname "red" }}
 hc keybind $Mod-Shift-w spawn qutebrowser
+{{ else }}
+hc keybind $Mod-Shift-w spawn brave
 {{ end }}
 hc keybind $Mod-Shift-e spawn emacs
 hc keybind $Mod-d spawn dmenu_run
