@@ -143,10 +143,10 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86AudioRaiseVolume exec pactl set-sink-volume \@DEFAULT_SINK@ +5%
     bindsym --locked XF86AudioMicMute exec pactl set-source-mute \@DEFAULT_SOURCE@ toggle
     # Special keys to adjust brightness via brightnessctl
-    bindsym --locked XF86MonBrightnessDown exec bright dec 5 --sweep
-    bindsym --locked XF86MonBrightnessUp exec bright inc 5 --sweep
-    bindsym --locked $mod+XF86MonBrightnessDown exec bright set 10 --sweep
-    bindsym --locked $mod+XF86MonBrightnessUp exec bright set 255 --sweep
+    bindsym --locked XF86MonBrightnessDown exec blight dec 5 --sweep
+    bindsym --locked XF86MonBrightnessUp exec blight inc 5 --sweep
+    bindsym --locked $mod+XF86MonBrightnessDown exec blight set 10 --sweep
+    bindsym --locked $mod+XF86MonBrightnessUp exec blight set 255 --sweep
     # Special key to take a screenshot with grim
     bindsym Print exec grim
 
