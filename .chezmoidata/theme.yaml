@@ -3,7 +3,7 @@ fonts:
     monospace:
       name: "JetBrainsMono Nerd Font"
       style: "Semibold"
-      size: 10
+      size: 12
   heimdall:
     monospace:
       name: "JetBrainsMono Nerd Font"
