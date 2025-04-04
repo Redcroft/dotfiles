@@ -1,0 +1,34 @@
+#!/bin/bash
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+set -eEuo pipefail
+
+{{- if (or (eq .chezmoi.osRelease.id "ubuntu") (eq .chezmoi.osRelease.id "elementary")) }}
+echo "---- Ubuntu Detected ----"
+
+echo "---- Updating Package Database ----"
+
+sudo apt -y update >/dev/null
+
+echo "---- Installing Packages ----"
+{{ range .packages.linux.common }}
+sudo apt -y install {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+{{ range .packages.linux.ubuntu.common }}
+sudo apt -y install {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+
+{{ if eq .chezmoi.hostname "red" -}}
+echo "---- Installing Laptop Packages ----"
+{{ range .packages.linux.ubuntu.laptop }}
+sudo apt -y install {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+
+{{ else -}}
+echo "---- Installing Workstation Packages ----"
+{{ range .packages.linux.ubuntu.workstation }}
+sudo apt -y install {{ . | quote }} >/dev/null 2>&1
+{{ end }}
+
+{{ end -}}
+echo "---- Package Installation Complete ----"
+{{- end }}

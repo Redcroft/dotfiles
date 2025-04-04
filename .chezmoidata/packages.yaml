@@ -30,6 +30,7 @@ packages:
       - 'yt-dlp'
       - 'wget'
       - 'zoxide'
+      - 'zsh'
     arch:
       common:
         - 'bitwarden-cli'
