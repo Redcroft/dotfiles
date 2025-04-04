@@ -1,0 +1,23 @@
+#!/bin/sh
+# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
+
+{{- if eq .chezmoi.osRelease.id "alpine"}}
+echo "---- Alpine Detected ----"
+
+APKFLAGS="--quiet --no-interactive --no-progress"
+
+echo "---- Updating Package Database ----"
+
+sudo apk update $APKFLAGS >/dev/null
+
+echo "---- Installing Packages ----"
+sudo apk add $APKFLAGS {{ range .packages.linux.common }} {{ . | quote }} {{ end }}
+sudo apk add $APKFLAGS {{ range .packages.linux.alpine.common }} {{ . | quote }} {{ end }}
+
+echo "---- Package Installation Complete ----"
+
+echo "---- Configure Services ----"
+sudo setup-xorg-base
+#flatpak remote-add --if-not-exists flathub https://dl.flathub.org/repo/flathub.flatpakrepo
+echo "---- Services Complete ----"
+{{- end }}

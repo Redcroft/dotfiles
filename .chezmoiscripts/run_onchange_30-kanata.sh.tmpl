@@ -1,5 +1,4 @@
 #!/bin/sh
-# packages.yml hash: {{ include ".chezmoidata/packages.yaml" | sha256sum }}
 set -eEuo pipefail
 
 if ! test -e /etc/kanata/config.kbd; then
@@ -10,6 +9,13 @@ echo "---- Installing Kanata config ----"
     doas mkdir /etc/kanata
     doas cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
     doas dinitctl enable kanata
+  {{ else if eq .chezmoi.osRelease.id "alpine" }}
+    echo "Alpine detected"
+    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/kanata.openrc" | quote }} /etc/init.d/kanata
+    sudo mkdir /etc/kanata
+    sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd
+    sudo rc-update add kanata
+    sudo rc-service kanata start
   {{ else }}
     sudo mkdir /etc/kanata
     sudo cp {{ joinPath .chezmoi.sourceDir "etc/kanata/red.kbd" | quote }} /etc/kanata/config.kbd

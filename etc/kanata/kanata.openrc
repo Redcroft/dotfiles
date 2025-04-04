@@ -1,0 +1,10 @@
+#!/sbin/openrc-run
+
+command="/usr/local/bin/kanata"
+command_args="--cfg /etc/kanata/config.kbd"
+command_background=true
+pidfile="/run/${RC_SVCNAME}.pid"
+
+start_pre() {
+    modprobe uinput || return 1
+}
